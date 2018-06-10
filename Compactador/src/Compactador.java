@@ -9,7 +9,7 @@ public class Compactador {
 	private int[] bytesArqLido = new int[256];
 	private RandomAccessFile arq ; //cria o arquivo
         ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
-        int qtd=0;
+        private int qtd=0;
        
 	
 	
@@ -90,12 +90,15 @@ public class Compactador {
                 if(cods[i]!=null)
                 {
                     tamCod = cods[i].length();
-                    byte tamB = (byte) tamCod;
-                    byte codB = (byte) Integer.parseInt(completaString(cods[i]), 2);
+                    byte tamB    = (byte) tamCod;
+                    byte novoCod = (byte) Integer.parseInt(completaString(cods[i]), 2);
+                    byte antCod  = (byte)i;
+                    //insirer as tres informações no cabeçalho
                 }
                 
             }             
         }
+
         
         private String completaString(String str)
         {
