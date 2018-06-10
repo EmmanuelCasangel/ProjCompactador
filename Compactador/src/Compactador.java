@@ -58,35 +58,53 @@ public class Compactador {
         
         public void Compactar()
         {   
-           try 
-           {
-        	   lerArquivo();                 
-               iniciarVetor();
-               ordenarVetor();
-              // mesclarArvores();
-			   finalizarCompactacao();
-			} 
+            try 
+            {
+                lerArquivo();                 
+                iniciarVetor();
+                ordenarVetor();
+                mesclarArvores();
+                finalizarCompactacao();
+            } 
             catch (Exception e) 
-           {
-				
-				e.printStackTrace();
-			}
+            {		
+                e.printStackTrace();
+            }
             
             
         }
 
         private void finalizarCompactacao()
         {
-        	//returna um vetor com 256 de string, com os novos codigos
-        	// a posição dos codigos  reprenta o codigo original
-        	//ex:[13]=000; [97]=0101; [99]=01001; [101]=011; [104]=1100; [105]=100; 
-        	//[108]=111; [110]=101; [111]=001; [115]=001; [118]=01000; 
-        	//as posições nulas, é porque não tinha nenhum codigo original que 
-        	//corresponde elas        	 
-        	String[] cods = arvores[0].novosCodigos();
-
+            //returna um vetor com 256 de string, com os novos codigos
+            // a posição dos codigos  reprenta o codigo original
+            //ex:[13]=000; [97]=0101; [99]=01001; [101]=011; [104]=1100; [105]=100; 
+            //[108]=111; [110]=101; [111]=001; [115]=001; [118]=01000; 
+            //as posições nulas, é porque não tinha nenhum codigo original que 
+            //corresponde elas        	 
+            String[] cods = arvores[0].novosCodigos();
+            
+            for(int i=0; i<cods.length;i++)
+            {
+                int tamCod;
+                if(cods[i]!=null)
+                {
+                    tamCod = cods[i].length();
+                    byte tamB = (byte) tamCod;
+                    byte codB = (byte) Integer.parseInt(completaString(cods[i]), 2);
+                }
+                
+            }             
         }
-
+        
+        private String completaString(String str)
+        {
+            while(str.length()<8)
+            {
+                str = "0"+str;
+            }
+            return str;
+        }
 
         private void iniciarVetor()
         {
@@ -123,7 +141,7 @@ public class Compactador {
             }
         }
         
-       /* private void mesclarArvores()throws Exception
+        private void mesclarArvores()throws Exception
         {
             try
             {
@@ -132,32 +150,22 @@ public class Compactador {
                     qtd--;
                     arvores[qtd-1].junteSe(arvores[qtd]);
                     arvores[qtd] = null;
-                    reorganizarVetor();
-                    
-                    
+                    reorganizarVetor();               
                 }
                 while(qtd>1);
-            
             }
             catch(Exception erro)
-            {
-            	Informa
-            	do
-            	{
-
-            	}
-            	while(aux )
-            }
+            {}
             
         }
-        */
+        
         private void reorganizarVetor()
         {
         	ArvoreCompactadora<Informacao> aux;
         	for(int i = qtd-1; i>0;i--)
         	{
-        		if(arvores[i].getFreq > arvores[i-1]) //erro aqui falando que o getFreq
-        		{ //cannot be resolved or is not a field
+        		if(arvores[i].getRaiz().getFreq()> arvores[i-1].getRaiz().getFreq())
+        		{
         			aux          = arvores[i];
         			arvores[i]   = arvores[i-1];
         			arvores[i-1] = aux;
