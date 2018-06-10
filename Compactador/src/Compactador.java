@@ -53,16 +53,25 @@ public class Compactador {
 		{
 			e.printStackTrace();
 		}
-	}
+	  }
 	
         
         public void Compactar()
-        {            
-            lerArquivo();                 
-            iniciarVetor();
-            ordenarVetor();
-            mesclarArvores();
-            finalizarCompactacao();
+        {   
+           try 
+           {
+        	   lerArquivo();                 
+               iniciarVetor();
+               ordenarVetor();
+              // mesclarArvores();
+			   finalizarCompactacao();
+			} 
+            catch (Exception e) 
+           {
+				
+				e.printStackTrace();
+			}
+            
             
         }
 
@@ -114,7 +123,7 @@ public class Compactador {
             }
         }
         
-        private void mesclarArvores()throws Exception
+       /* private void mesclarArvores()throws Exception
         {
             try
             {
@@ -141,14 +150,14 @@ public class Compactador {
             }
             
         }
-        
+        */
         private void reorganizarVetor()
         {
         	ArvoreCompactadora<Informacao> aux;
         	for(int i = qtd-1; i>0;i--)
         	{
-        		if(arvores[i].getFreq > arvores[i-1])
-        		{
+        		if(arvores[i].getFreq > arvores[i-1]) //erro aqui falando que o getFreq
+        		{ //cannot be resolved or is not a field
         			aux          = arvores[i];
         			arvores[i]   = arvores[i-1];
         			arvores[i-1] = aux;
