@@ -5,7 +5,7 @@ import java.io.RandomAccessFile;
 
 public class Compactador {
 
-	
+	private String nomeArq;
 	private int[] bytesArqLido = new int[256];
 	private RandomAccessFile arq ; //cria o arquivo
         ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
@@ -13,11 +13,11 @@ public class Compactador {
        
 	
 	
-	public Compactador(String NomeArq)
+	public Compactador(String nArq)
 	{
 		try 
-		{
-			arq = new RandomAccessFile(NomeArq,"rw");
+		{       nomeArq = nArq;
+			arq = new RandomAccessFile(nArq,"rw");
 		}
 		catch (FileNotFoundException e) 
 		{
@@ -76,33 +76,54 @@ public class Compactador {
 
         private void finalizarCompactacao()
         {
-            //returna um vetor com 256 de string, com os novos codigos
-            // a posição dos codigos  reprenta o codigo original
-            //ex:[13]=000; [97]=0101; [99]=01001; [101]=011; [104]=1100; [105]=100; 
-            //[108]=111; [110]=101; [111]=001; [115]=001; [118]=01000; 
-            //as posições nulas, é porque não tinha nenhum codigo original que 
-            //corresponde elas        	 
-            String[] cods = arvores[0].novosCodigos();
-            
-            for(int i=0; i<cods.length;i++)
+            try
             {
-                int tamCod;
-                if(cods[i]!=null)
-                {
-                    tamCod = cods[i].length();
-                    byte tamB    = (byte) tamCod;
-                    byte novoCod = (byte) Integer.parseInt(completaString(cods[i]), 2);
-                    byte antCod  = (byte)i;
-                    //insirer as tres informações no cabeçalho
-                }
                 
-            }             
-        }
+                RandomAccessFile arqNovo = new RandomAccessFile(nomeArq, "rw");
+           
+           
+                String[] cods = arvores[0].novosCodigos();
 
+                for(int i=0; i<cods.length;i++)
+                {
+                    if(cods[i]!=null)
+                    {
+                        byte tamCod    = (byte)  cods[i].length();
+                        String codStr = completaString(cods[i]);
+                        byte[] codB = stringToByteArray(codStr);
+                        byte codAnt  = (byte)i;
+                        
+                        arqNovo.write(tamCod);
+                        arqNovo.write(codB);
+                        arqNovo.write(codAnt);
+
+                    }
+
+                }
+            
+            }
+            catch(Exception erro)
+            {
+                
+            }
+        }
+        
+        private byte[] stringToByteArray(String str)
+        {
+            int tamVet = (int) Math.ceil(str.length()/8.);
+            byte[] ret = new byte[tamVet];
+            
+            for(int i=0; i<tamVet; i++)
+            {
+                ret[i] = (byte)Integer.parseInt(str.substring(i*8, (i*8)+8),2);
+            }
+            
+            return ret;
+        }
         
         private String completaString(String str)
         {
-            while(str.length()<8)
+            while(str.length()%8!=0)
             {
                 str = "0"+str;
             }
@@ -131,8 +152,7 @@ public class Compactador {
         	for (int i = 0; i < qtd-1; i++) 
            {
                 for (int h = 0; h < i; h++) 
-                {
-                    
+                {                    
                     if (arvores[i].getRaiz().getFreq() < arvores[h].getRaiz().getFreq()) 
                     {
                         ArvoreCompactadora<Informacao>aux  = arvores[i];
