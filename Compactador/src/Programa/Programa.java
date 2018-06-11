@@ -9,6 +9,7 @@ package Programa;
  *
  * @author u17172
  */
+
 public class Programa {
 
     /**
@@ -16,6 +17,8 @@ public class Programa {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        BufferedReader d = new BufferedReader(new InputStreamReader(in));
+        String nomeArq = d.readLine();
     }
     
 }

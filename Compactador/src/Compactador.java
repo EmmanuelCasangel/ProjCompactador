@@ -88,20 +88,26 @@ public class Compactador {
            
                 String[] cods = arvores[0].novosCodigos();
                 
-                int qtdCods = 0;
-		for (String cod : cods) {
-                    if (cod != null)
-                        qtdCods++;
-		}
+               
                 
                 String txtEmCod = "";
 		for (char c : this.texto.toCharArray()) {
 			txtEmCod += cods[c-1];
 		}
                 
+                 int qtdCods = 0;
+		for (String cod : cods) 
+                {
+                    if (cod != null)
+                        qtdCods++;
+		}
+                
                 int qtdLixo = 8 - txtEmCod.length() % 8;
 		if (qtdLixo == 8)
 			qtdLixo = 0;
+                
+                arqNovo.write(qtdLixo);
+                arqNovo.write(qtdCods);
                 
                 
                 for(int i=0; i<cods.length;i++)
@@ -109,15 +115,16 @@ public class Compactador {
                     if(cods[i]!=null)
                     {
                         byte tamCod    = (byte)  cods[i].length();
-                        String codStr = completaString(cods[i]);
-                        byte[] codB = stringToByteArray(codStr);
+                        byte[] codB = stringToByteArray(cods[i]);
                         byte codAnt  = (byte)i;
                         
                         arqNovo.write(tamCod);
                         arqNovo.write(codB);
                         arqNovo.write(codAnt);
                     }
-                }
+                }                
+                arqNovo.write(stringToByteArray(txtEmCod));
+                arqNovo.close();
             
             }
             catch(Exception erro)
@@ -128,12 +135,14 @@ public class Compactador {
         
         private byte[] stringToByteArray(String str)
         {
-            int tamVet = (int) Math.ceil(str.length()/8.);
+            String strC = completaString(str);
+            
+            int tamVet = (int) Math.ceil(strC.length()/8.);
             byte[] ret = new byte[tamVet];
             
             for(int i=0; i<tamVet; i++)
             {
-                ret[i] = (byte)Integer.parseInt(str.substring(i*8, (i*8)+8),2);
+                ret[i] = (byte)Integer.parseInt(strC.substring(i*8, (i*8)+8),2);
             }
             
             return ret;
