@@ -1,10 +1,13 @@
 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Compactador {
-
+        private String texto;
 	private String nomeArq;
 	private int[] bytesArqLido = new int[256];
 	private RandomAccessFile arq ; //cria o arquivo
@@ -30,7 +33,8 @@ public class Compactador {
 	private void lerArquivo()
 	{
 		try {
-			
+                    
+                        this.texto = new String(Files.readAllBytes(Paths.get(nomeArq)));
 			for(;;)
 			{
 				int atual;
@@ -83,7 +87,23 @@ public class Compactador {
            
            
                 String[] cods = arvores[0].novosCodigos();
-
+                
+                int qtdCods = 0;
+		for (String cod : cods) {
+                    if (cod != null)
+                        qtdCods++;
+		}
+                
+                String txtEmCod = "";
+		for (char c : this.texto.toCharArray()) {
+			txtEmCod += cods[c-1];
+		}
+                
+                int qtdLixo = 8 - txtEmCod.length() % 8;
+		if (qtdLixo == 8)
+			qtdLixo = 0;
+                
+                
                 for(int i=0; i<cods.length;i++)
                 {
                     if(cods[i]!=null)
@@ -96,9 +116,7 @@ public class Compactador {
                         arqNovo.write(tamCod);
                         arqNovo.write(codB);
                         arqNovo.write(codAnt);
-
                     }
-
                 }
             
             }
