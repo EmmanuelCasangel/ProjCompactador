@@ -13,24 +13,47 @@ public class Descompactador
         try 
 	{       
             
-            RandomAccessFile arq = new RandomAccessFile(nArq,"rw");
+            RandomAccessFile arq = new RandomAccessFile(nArq,"r");
             
             
-            int qtdLixo = arq.read();
-            int qtdCods = arq.read();
+            int qtdLixo = arq.readInt();
+            int qtdCods = arq.readInt();
             
-            int tam =(int)(long) arq.length();
-            byte[] arqEmBytes= new byte[tam];
-            
+            int tamCabecalho = 2;
             
             
-            String str  = Integer.toBinaryString(byte);
+            Object[][] cods = new Object[qtdCods][3];
+            
+            for(int i=0; i<qtdCods;i++)
+            {
+                int tamCod   = arq.readInt();
+                int tamVet = (int) Math.ceil(tamCod/8.);  
+                byte[] cod = new byte[tamVet];
+                
+                for(i=0; i<tamVet; i++)
+                {
+                    cod[i] = arq.readByte();
+                    tamCabecalho++;
+                }
+                cods[i][0] = tamCod;
+                tamCabecalho += 4;
+                cods[i][1]   = cod;
+                cods[i][2]   = arq.readChar();
+                tamCabecalho += 2;
+                
+            }
+            
+            int tamArq =(int)(long) arq.length();
+            byte[] textoEmByte = new byte[tamArq-tamCabecalho];
+            arq.read(textoEmByte);
+            
+            /*String str  = Integer.toBinaryString(byte);
             
             if(str.length()<8)
                 str = completaString(str);
             
             if(str.length()>8)
-                str = str.substring(str.length()-8, str.length());
+                str = str.substring(str.length()-8, str.length());*/
         }
         catch (Exception e) 
 	{
