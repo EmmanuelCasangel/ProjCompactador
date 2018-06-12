@@ -26,7 +26,8 @@ public class Compactador {
         {
         BufferedReader d = new BufferedReader(new InputStreamReader(in));
         String nomeArq = d.readLine();
-        classes.Compactador c = new classes.Compactador(nomeArq);
+        String nomeArqNovo = nomeArq+".comp";
+        classes.Compactador c = new classes.Compactador(nomeArq, nomeArqNovo);
         }
         catch(Exception erro)
         {
