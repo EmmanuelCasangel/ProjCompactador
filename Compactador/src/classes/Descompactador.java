@@ -46,14 +46,22 @@ public class Descompactador
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
             arq.read(textoEmByte);
+            String texto = "";
             
-            /*String str  = Integer.toBinaryString(byte);
+            for(byte pedaco : textoEmByte )
+            {    
+                String str  = Integer.toBinaryString(pedaco);
+
+                if(str.length()<8)
+                    str = completaString(str);
+
+                if(str.length()>8)
+                    str = str.substring(str.length()-8, str.length());
+                
+                texto += str;
+            }
             
-            if(str.length()<8)
-                str = completaString(str);
             
-            if(str.length()>8)
-                str = str.substring(str.length()-8, str.length());*/
         }
         catch (Exception e) 
 	{
