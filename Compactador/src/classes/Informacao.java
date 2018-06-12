@@ -1,3 +1,5 @@
+package classes;
+
 public class Informacao
 {
     protected int cod;

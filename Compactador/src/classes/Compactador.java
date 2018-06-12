@@ -10,21 +10,24 @@ import java.nio.file.Paths;
 
 public class Compactador {
         private String texto;
-	private String nomeArq;
+	private String nomeArqNovo;
 	private int[] bytesArqLido = new int[256];
-	private RandomAccessFile arq ; //cria o arquivo
+	private RandomAccessFile arq; //cria o arquivo
         ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
         private int qtd=0;
        
 	
 	
-	public Compactador(String nArq)
+	public Compactador(String nArq, String nArqNovo)
 	{
 		try 
-		{       nomeArq = nArq;
-			arq = new RandomAccessFile(nArq,"rw");
+		{   
+                    nomeArqNovo = nArqNovo;
+                    this.texto = new String(Files.readAllBytes(Paths.get(nArq)));
+                    arq = new RandomAccessFile(nArq,"rw");
+                       
 		}
-		catch (FileNotFoundException e) 
+		catch (Exception e) 
 		{
 			
 			e.printStackTrace();
@@ -36,7 +39,7 @@ public class Compactador {
 	{
 		try {
                     
-                        this.texto = new String(Files.readAllBytes(Paths.get(nomeArq)));
+                       
 			for(;;)
 			{
 				int atual;
@@ -85,7 +88,7 @@ public class Compactador {
             try
             {
                 
-                RandomAccessFile arqNovo = new RandomAccessFile(nomeArq, "rw");
+                RandomAccessFile arqNovo = new RandomAccessFile(nomeArqNovo, "rw");
            
            
                 String[] cods = arvores[0].novosCodigos();

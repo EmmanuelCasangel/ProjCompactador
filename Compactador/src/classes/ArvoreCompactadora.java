@@ -1,6 +1,7 @@
 
 import java.lang.reflect.*;
 
+
 public class ArvoreCompactadora<X> extends Arvore<X>
 {
    
@@ -9,7 +10,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
     
     public void insere(X x)
     {
-        if(raiz==null)
+        if(this.raiz==null)
             this.raiz = new No(x);
     }    
 
