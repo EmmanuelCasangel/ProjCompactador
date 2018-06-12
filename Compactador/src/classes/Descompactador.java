@@ -74,9 +74,7 @@ public class Descompactador
                             textoCompactado = "";
                         else
                             textoCompactado = textoCompactado.substring((int)cods[i][0],textoCompactado.length());
-                    }
-                    
-                        
+                    }                   
                 }
             }
             
