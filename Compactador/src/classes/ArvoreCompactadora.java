@@ -1,6 +1,6 @@
-
+package classes;
 import java.lang.reflect.*;
-
+import classes.arvore.*;
 
 public class ArvoreCompactadora<X> extends Arvore<X>
 {
@@ -32,7 +32,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
         if (outra==null)
             throw new Exception ("Arvore ausente");
 
-        int freq = ((Informacao)(this.raiz.info)).getFreq()+((Informacao)(outra.raiz.info)).getFreq();
+        int freq = ((Informacao)(this.raiz.getInfo())).getFreq()+((Informacao)(outra.raiz.getInfo())).getFreq();
 
         Informacao info = new Informacao(freq);
         
@@ -58,7 +58,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
         if(atual!=null)
             {
 
-            if(((Informacao)this.raiz.info).getCod() != -1)
+            if(((Informacao)this.raiz.getInfo()).getCod() != -1)
             {
                 cods[((Informacao)atual.getInfo()).getCod()]=c;
             }

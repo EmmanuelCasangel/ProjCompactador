@@ -5,6 +5,11 @@
  */
 package compactador;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import static java.lang.System.in;
+import classes.*;
+
 /**
  *
  * @author u17172
@@ -16,6 +21,17 @@ public class Compactador {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        try
+        {
+        BufferedReader d = new BufferedReader(new InputStreamReader(in));
+        String nomeArq = d.readLine();
+        classes.Compactador c = new classes.Compactador(nomeArq);
+        }
+        catch(Exception erro)
+        {
+            
+        }
     }
     
 }

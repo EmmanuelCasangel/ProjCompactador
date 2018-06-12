@@ -1,4 +1,4 @@
-
+package classes.arvore;
 import java.lang.reflect.*;
 
 public abstract class Arvore<X>
