@@ -46,7 +46,7 @@ public class Descompactador
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
             arq.read(textoEmByte);
-            String texto = "";
+            String textoCompactado = "";
             
             for(byte pedaco : textoEmByte )
             {    
@@ -58,7 +58,26 @@ public class Descompactador
                 if(str.length()>8)
                     str = str.substring(str.length()-8, str.length());
                 
-                texto += str;
+                textoCompactado += str;
+            }
+            
+            String textoPronto = "";
+            while(!textoCompactado.isEmpty())
+            {
+                for(int i=0; i<cods.length; i++)
+                {
+                    if(textoCompactado.indexOf((String)cods[i][1])== 0)
+                    {
+                        textoPronto += cods[i][2];
+                        
+                        if((int)cods[i][0] > textoCompactado.length())
+                            textoCompactado = "";
+                        else
+                            textoCompactado = textoCompactado.substring((int)cods[i][0],textoCompactado.length());
+                    }
+                    
+                        
+                }
             }
             
             
