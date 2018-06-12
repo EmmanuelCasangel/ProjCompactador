@@ -119,13 +119,13 @@ public class Compactador {
                 {
                     if(cods[i]!=null)
                     {
-                        byte tamCod    = (byte)  cods[i].length();
+                        int tamCod    =   cods[i].length();
                         byte[] codB = stringToByteArray(cods[i]);
-                        byte codAnt  = (byte)i;
+                        char codAnt  = (char)i;
                         
-                        arqNovo.write(tamCod);
+                        arqNovo.writeInt(tamCod);
                         arqNovo.write(codB);
-                        arqNovo.write(codAnt);
+                        arqNovo.writeChar(codAnt);
                     }
                 }                
                 arqNovo.write(stringToByteArray(txtEmCod));
