@@ -49,7 +49,7 @@ public class Compactador {
 				if(atual == -1)
 					break;
 				
-				System.out.println(atual);
+				//System.out.println(atual);
 				
 				
 				
@@ -72,7 +72,7 @@ public class Compactador {
                 lerArquivo();                 
                 iniciarVetor();
                 ordenarVetor();
-                mesclarArvores();
+                mesclarArvores();               
                 finalizarCompactacao();
                 System.out.println("Compactou"); 
             } 
@@ -81,16 +81,18 @@ public class Compactador {
                 e.printStackTrace();
             }
             
-            
+           
         }
 
         private void finalizarCompactacao()
         {
             try
             {
+               
+               
                 
-                RandomAccessFile arqNovo = new RandomAccessFile(nomeArqNovo, "rw");
-           
+                RandomAccessFile arqNovo = new RandomAccessFile(nomeArqNovo+".comp", "rw");
+                
            
                 String[] cods = arvores[0].novosCodigos();
                 
@@ -131,12 +133,13 @@ public class Compactador {
                 }                
                 arqNovo.write(stringToByteArray(txtEmCod));
                 arqNovo.close();
-            
+           
             }
             catch(Exception erro)
             {
                 
             }
+                
         }
         
         private byte[] stringToByteArray(String str)
@@ -167,7 +170,7 @@ public class Compactador {
         {
         	ArvoreCompactadora<Informacao> arvoreC;
 
-        	for(int i=0;i<=bytesArqLido.length; i++)
+        	for(int i=0;i<=bytesArqLido.length-1; i++)
             {
                 if(bytesArqLido[i]!=0)
                 {

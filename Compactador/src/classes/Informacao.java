@@ -1,11 +1,11 @@
-package classes;
+﻿package classes;
 
 public class Informacao
 {
-    protected int cod;
+    protected Integer cod;
     protected int frequencia;
 
-    public int getCod()
+    public Integer getCod()
     {
         return this.cod;
     }
@@ -15,7 +15,7 @@ public class Informacao
         return this.frequencia;
     }
 
-    public void setCod(int c)
+    public void setCod(Integer c)
     {
         this.cod = c;
     }
@@ -25,7 +25,7 @@ public class Informacao
          this.frequencia = f;
     }
 
-    public Informacao(int c, int freq)
+    public Informacao(Integer c, int freq)
     {
         this.cod = c;
         this.frequencia = freq;
@@ -33,7 +33,7 @@ public class Informacao
 
     public Informacao(int freq)
     {
-        this(-1, freq);
+        this(null, freq);
     }
         
         

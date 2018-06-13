@@ -25,12 +25,14 @@ public class Compactador {
         try
         {
         BufferedReader d = new BufferedReader(new InputStreamReader(in));
-        System.out.println("Escreve o caminho ddo arquivo a ser comactado"); 
+        System.out.println("Escreve o caminho ddo arquivo a ser descompactado"); 
         String nomeArq = d.readLine();
-        System.out.println("Escreve o caminho ddo arquivo a ser comactado"); 
+        System.out.println("Escreve o caminho do arquivo a ser escrito"); 
         String nomeArqNovo =  d.readLine();
         classes.Compactador c = new classes.Compactador(nomeArq, nomeArqNovo);
         c.Compactar();
+       
+        
         
         }
         catch(Exception erro)

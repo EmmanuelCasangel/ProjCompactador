@@ -1,14 +1,18 @@
 package classes;
 
+import static java.awt.SystemColor.text;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 
+
 public class Descompactador
 {
     
-    public Descompactador(String nArq)
+    public Descompactador(String nArq, String nNovoArq)
     {
         try 
 	{       
@@ -77,7 +81,12 @@ public class Descompactador
                     }                   
                 }
             }
+            //escrevaArq(textoPronto, nNovoArq);
             
+            FileWriter file = new FileWriter(nNovoArq);
+            
+            file.write(textoPronto);
+            file.close();
             
         }
         catch (Exception e) 
