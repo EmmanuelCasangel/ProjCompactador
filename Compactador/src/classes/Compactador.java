@@ -74,6 +74,7 @@ public class Compactador {
                 ordenarVetor();
                 mesclarArvores();
                 finalizarCompactacao();
+                System.out.println("Compactou"); 
             } 
             catch (Exception e) 
             {		
