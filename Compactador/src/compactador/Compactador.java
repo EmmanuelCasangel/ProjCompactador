@@ -32,14 +32,17 @@ public class Compactador {
         String[] cods = c.Compactar();
         
         //Descompactador desc = new Descompactador(nomeArq);
-
+        String cod;
        for(int i = 0; i< cods.length; i++)
-           String cod = cods[i];
+       {   
+           cod = cods[i];
+           
            if(cod!=null)
            {
-               p(i);
+               p(""+i);
                p(cod);
            }
+       }
         
         
         }

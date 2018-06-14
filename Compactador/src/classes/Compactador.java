@@ -68,7 +68,7 @@ public class Compactador {
 	  }
 	
         
-        public void Compactar()
+        public String[] Compactar()
         {   
             
             try 
@@ -84,7 +84,8 @@ public class Compactador {
             catch (Exception e) 
             {		
                 e.printStackTrace();
-            }          
+            } 
+            return arvores[0].novosCodigos();
             
         }
 
