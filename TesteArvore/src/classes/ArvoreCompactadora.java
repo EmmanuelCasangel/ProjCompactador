@@ -27,7 +27,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
             return this.raiz.getInfo();
     }
 
-    public void junteSe(ArvoreCompactadora<X> outra) throws Exception
+    public void junteSe(ArvoreCompactadora<X> outra) throws Exception//funciona
     {
         if (outra==null)
             throw new Exception ("Arvore ausente");
@@ -41,7 +41,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
         this.raiz = novaRaiz;
     }
 
-    public String[] novosCodigos()
+    public String[] novosCodigos()//tem que arrumar
     {
         //por enquanto deixarei codigo como string
 
@@ -58,7 +58,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
         if(atual!=null)
             {
 
-            if(((Informacao)this.raiz.getInfo()).getCod() != null)
+            if(((Informacao)atual.getInfo()).getCod() != null)
             {
                 cods[((Informacao)atual.getInfo()).getCod()]=c;
             }

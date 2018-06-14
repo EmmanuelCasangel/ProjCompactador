@@ -18,11 +18,11 @@ public class Compactador {
        
 	
 	
-	public Compactador(String nArq, String nArqNovo)
+	public Compactador(String nArq)
 	{
 		try 
 		{   
-                    nomeArqNovo = nArqNovo;
+                    nomeArqNovo = nArq+".comp";
                     this.texto = new String(Files.readAllBytes(Paths.get(nArq)));
                     arq = new RandomAccessFile(nArq,"rw");
                        
@@ -91,7 +91,7 @@ public class Compactador {
                
                
                 
-                RandomAccessFile arqNovo = new RandomAccessFile(nomeArqNovo+".comp", "rw");
+                RandomAccessFile arqNovo = new RandomAccessFile(nomeArqNovo, "rw");
                 
            
                 String[] cods = arvores[0].novosCodigos();

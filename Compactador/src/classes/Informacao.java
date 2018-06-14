@@ -1,4 +1,4 @@
-﻿package classes;
+package classes;
 
 public class Informacao
 {
@@ -39,9 +39,9 @@ public class Informacao
         
     public String toString ()
     {
-       String ret = "{";
+       String ret = "(";
        ret += this.cod + ","+this.frequencia;
-       ret += "}";
+       ret += ")";
        return ret;              
     }    
 
@@ -69,7 +69,7 @@ public class Informacao
     {
         int ret = 666;
         
-        ret += ret*5 + new Integer(this.cod).hashCode();
+        ret += ret*5 + this.cod.hashCode();
         ret += ret*5 + new Integer(this.frequencia).hashCode();
         
         return ret;        
