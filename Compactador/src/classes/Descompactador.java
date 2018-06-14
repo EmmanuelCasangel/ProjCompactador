@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 public class Descompactador
 {
     
-    public Descompactador(String nArq, String nNovoArq)
+    public Descompactador(String nArq)
     {
         try 
 	{       
@@ -21,7 +21,8 @@ public class Descompactador
             
             
             int qtdLixo = arq.readInt();
-            int qtdCods = arq.readInt();
+            System.out.println(String.valueOf(qtdLixo));
+            /*int qtdCods = arq.readInt();
             
             int tamCabecalho = 2;
             
@@ -82,11 +83,12 @@ public class Descompactador
                 }
             }
             //escrevaArq(textoPronto, nNovoArq);
-            
+            int onde  = nArq.indexOf(".comp");
+            String nNovoArq = nArq.substring(0, onde-1);
             FileWriter file = new FileWriter(nNovoArq);
             
             file.write(textoPronto);
-            file.close();
+            file.close();*/
             
         }
         catch (Exception e) 

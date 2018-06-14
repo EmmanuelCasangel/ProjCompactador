@@ -1,5 +1,6 @@
 package classes;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -9,8 +10,8 @@ import java.nio.file.Paths;
 
 
 public class Compactador {
-        private String texto;
-	private String nomeArqNovo;
+        private byte[] textoEmByte;
+	private String nomeArq;
 	private int[] bytesArqLido = new int[256];
 	private RandomAccessFile arq; //cria o arquivo
         ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
@@ -18,14 +19,16 @@ public class Compactador {
        
 	
 	
-	public Compactador(String nArq, String nArqNovo)
+	public Compactador(String nArq)
 	{
 		try 
 		{   
-                    nomeArqNovo = nArqNovo;
-                    this.texto = new String(Files.readAllBytes(Paths.get(nArq)));
-                    arq = new RandomAccessFile(nArq,"rw");
-                       
+                    nomeArq = nArq;
+                    this.textoEmByte = new byte[(int)(new File(nArq).length())];
+                    arq = new RandomAccessFile(nArq,"r");
+                    
+                    arq.read(textoEmByte);
+                    arq.close();
 		}
 		catch (Exception e) 
 		{
@@ -34,39 +37,40 @@ public class Compactador {
 		}
 		
 	}
-	
+        	
 	private void lerArquivo()
 	{
-		try {
-                    
+            RandomAccessFile leArq;
+		try 
+                {
+                    leArq = new RandomAccessFile(nomeArq,"r");
                        
-			for(;;)
-			{
-				int atual;
-				
-				atual = arq.read();
+                    for(;;)
+                    {
+			int atual;
 			
-				if(atual == -1)
-					break;
+			atual = arq.read();
+		
+			if(atual == -1)
+                            break;
 				
-				//System.out.println(atual);
-				
-				
-				
-				bytesArqLido[atual] =bytesArqLido[atual] + 1;
-					
-				
-			}
+                        //System.out.println(atual);				
+						
+			bytesArqLido[atual] =bytesArqLido[atual] + 1;
+								
+                    }
+                    leArq.close();
 		} 
 		catch (IOException e) 
 		{
-			e.printStackTrace();
+                    e.printStackTrace();
 		}
 	  }
 	
         
         public void Compactar()
         {   
+            
             try 
             {
                 lerArquivo();                 
@@ -75,13 +79,13 @@ public class Compactador {
                 mesclarArvores();               
                 finalizarCompactacao();
                 System.out.println("Compactou"); 
+                
             } 
             catch (Exception e) 
             {		
                 e.printStackTrace();
-            }
+            }          
             
-           
         }
 
         private void finalizarCompactacao()
@@ -91,7 +95,7 @@ public class Compactador {
                
                
                 
-                RandomAccessFile arqNovo = new RandomAccessFile(nomeArqNovo+".comp", "rw");
+                RandomAccessFile arqNovo = new RandomAccessFile(nomeArq+".comp", "rw");
                 
            
                 String[] cods = arvores[0].novosCodigos();
@@ -99,11 +103,13 @@ public class Compactador {
                
                 
                 String txtEmCod = "";
-		for (char c : this.texto.toCharArray()) {
-			txtEmCod += cods[c-1];
+		for (byte b : this.textoEmByte)
+                {
+                    if(cods[b-1] !=null)//na
+                        txtEmCod += cods[b-1];
 		}
                 
-                 int qtdCods = 0;
+                int qtdCods = 0;
 		for (String cod : cods) 
                 {
                     if (cod != null)
@@ -168,12 +174,13 @@ public class Compactador {
 
         private void iniciarVetor()
         {
-        	ArvoreCompactadora<Informacao> arvoreC;
+            ArvoreCompactadora<Informacao> arvoreC;
 
-        	for(int i=0;i<=bytesArqLido.length-1; i++)
+            for(int i=0;i<=bytesArqLido.length-1; i++)
             {
                 if(bytesArqLido[i]!=0)
                 {
+                    
                     Informacao info = new Informacao(i,bytesArqLido[i]);
                     arvoreC = new ArvoreCompactadora(info);
                     qtd++;
@@ -205,8 +212,7 @@ public class Compactador {
             try
             {
                 do
-                {
-                    qtd--;
+                {                    qtd--;
                     arvores[qtd-1].junteSe(arvores[qtd]);
                     arvores[qtd] = null;
                     reorganizarVetor();               

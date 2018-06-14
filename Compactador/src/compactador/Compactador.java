@@ -25,12 +25,14 @@ public class Compactador {
         try
         {
         BufferedReader d = new BufferedReader(new InputStreamReader(in));
-        System.out.println("Escreve o caminho ddo arquivo a ser descompactado"); 
+        System.out.println("Escreve o caminho do arquivo a ser descompactado"); 
         String nomeArq = d.readLine();
-        System.out.println("Escreve o caminho do arquivo a ser escrito"); 
-        String nomeArqNovo =  d.readLine();
-        classes.Compactador c = new classes.Compactador(nomeArq, nomeArqNovo);
+        
+        classes.Compactador c = new classes.Compactador(nomeArq);
         c.Compactar();
+        
+        //Descompactador desc = new Descompactador(nomeArq);
+
        
         
         
@@ -39,6 +41,11 @@ public class Compactador {
         {
             
         }
+    }
+    
+    public static void p(String str)
+    {
+        System.out.println(str);
     }
     
 }

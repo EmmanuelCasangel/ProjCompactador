@@ -22,7 +22,7 @@ public class TesteArvore {
         
         Informacao info = new Informacao(122,3);
         Informacao info2 = new Informacao(231,1);
-        Informacao info3 = new Informacao(545,5);
+        Informacao info3 = new Informacao(248 ,5);
         
         ArvoreCompactadora arv = new ArvoreCompactadora(info); 
         ArvoreCompactadora arv2 = new ArvoreCompactadora(info2);
