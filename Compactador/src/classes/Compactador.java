@@ -192,16 +192,16 @@ public class Compactador {
 
         private void ordenarVetor()
         {
-        	for (int i = 0; i < qtd-1; i++) 
-           {
-                for (int h = 0; h < i; h++) 
+        	for (int i = 0; i < qtd; i++) // mudado de qtd-1 para qtd.
+        	{
+                for (int h = 0; h < qtd; h++) //mudar aqui o i ; tem que ser  i < qtd, antigo estava h<1.
                 {                    
-                    if (arvores[i].getRaiz().getFreq() < arvores[h].getRaiz().getFreq()) 
+                    if (arvores[i].getRaiz().getFreq() > arvores[h].getRaiz().getFreq())  //mudado aqui de < para >
                     {
                         ArvoreCompactadora<Informacao>aux  = arvores[i];
                     
                         arvores[i] = arvores[h];
-                        arvores[h] = aux;
+                        arvores[h] = aux; 
                     }
                 }
             }
