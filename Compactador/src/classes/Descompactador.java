@@ -22,7 +22,7 @@ public class Descompactador
             
             int qtdLixos = arq.readInt();
             System.out.println(String.valueOf(qtdLixos));
-            int qtdCods = arq.readInt();
+            /*int qtdCods = arq.readInt();
             
             int tamCabecalho = 2;
             
@@ -89,7 +89,7 @@ public class Descompactador
             
             file.write(textoPronto);
             file.close();
-            
+            */
         }
         catch (Exception e) 
 	{
