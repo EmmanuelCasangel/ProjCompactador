@@ -20,10 +20,10 @@ public class Descompactador
             RandomAccessFile arq = new RandomAccessFile(nArq,"r");
             
             
-            int qtdLixo = arq.readInt();
-            System.out.println(String.valueOf(qtdLixo));
-            /*int qtdCods = arq.readInt();
-            
+            int qtdLixos = arq.readInt();
+            System.out.println(String.valueOf(qtdLixos));
+            int qtdCods = arq.readInt();
+            /*
             int tamCabecalho = 2;
             
             
@@ -88,8 +88,8 @@ public class Descompactador
             FileWriter file = new FileWriter(nNovoArq);
             
             file.write(textoPronto);
-            file.close();*/
-            
+            file.close();
+            */
         }
         catch (Exception e) 
 	{

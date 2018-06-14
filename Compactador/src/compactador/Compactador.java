@@ -28,10 +28,10 @@ public class Compactador {
         System.out.println("Escreve o caminho do arquivo a ser descompactado"); 
         String nomeArq = d.readLine();
         
-        classes.Compactador c = new classes.Compactador(nomeArq);
-        c.Compactar();
+        //classes.Compactador c = new classes.Compactador(nomeArq);
+        //c.Compactar();
         
-        //Descompactador desc = new Descompactador(nomeArq);
+        Descompactador desc = new Descompactador(nomeArq);
 
        
         

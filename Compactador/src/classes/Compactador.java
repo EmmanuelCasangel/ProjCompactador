@@ -49,7 +49,7 @@ public class Compactador {
                     {
 			int atual;
 			
-			atual = arq.read();
+			atual = leArq.read();
 		
 			if(atual == -1)
                             break;
@@ -105,8 +105,8 @@ public class Compactador {
                 String txtEmCod = "";
 		for (byte b : this.textoEmByte)
                 {
-                    if(cods[b-1] !=null)//na
-                        txtEmCod += cods[b-1];
+                    //if(cods[b] !=null)//na
+                    txtEmCod += cods[b];
 		}
                 
                 int qtdCods = 0;
@@ -120,8 +120,9 @@ public class Compactador {
 		if (qtdLixo == 8)
 			qtdLixo = 0;
                 
-                arqNovo.write(qtdLixo);
-                arqNovo.write(qtdCods);
+                //passar a qtdLixo e a qtdCods para byte
+                arqNovo.writeInt(qtdLixo);
+                arqNovo.writeInt(qtdCods);
                 
                 
                 for(int i=0; i<cods.length;i++)
