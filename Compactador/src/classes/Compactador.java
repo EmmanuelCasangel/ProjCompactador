@@ -72,7 +72,8 @@ public class Compactador {
                 lerArquivo();                 
                 iniciarVetor();
                 ordenarVetor();
-                mesclarArvores();               
+                mesclarArvores();
+                
                 finalizarCompactacao();
                 System.out.println("Compactou"); 
             } 
