@@ -68,7 +68,7 @@ public class Compactador {
 	  }
 	
         
-        public String[] Compactar()
+        public void Compactar()
         {   
             
             try 
@@ -85,7 +85,7 @@ public class Compactador {
             {		
                 e.printStackTrace();
             } 
-            return arvores[0].novosCodigos();
+            
             
         }
 
@@ -106,7 +106,7 @@ public class Compactador {
                 String txtEmCod = "";
 		for (byte b : this.textoEmByte)
                 {
-                    //if(cods[b] !=null)//na
+                    //funcionou o txtEmCod, pelo menos com texto 
                     txtEmCod += cods[b];
 		}
                 

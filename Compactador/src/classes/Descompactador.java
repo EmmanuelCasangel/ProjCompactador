@@ -22,7 +22,8 @@ public class Descompactador
             
             int qtdLixos = arq.readInt();
             System.out.println(String.valueOf(qtdLixos));
-            /*int qtdCods = arq.readInt();
+            int qtdCods = arq.readInt();
+            System.out.println(String.valueOf(qtdCods));
             
             int tamCabecalho = 2;
             
@@ -35,16 +36,19 @@ public class Descompactador
                 int tamVet = (int) Math.ceil(tamCod/8.);  
                 byte[] cod = new byte[tamVet];
                 
-                for(i=0; i<tamVet; i++)
+                for(int j=0; j<tamVet; j++)
                 {
-                    cod[i] = arq.readByte();
+                    cod[j] = (byte)arq.read();//acho que resolvi o erro
                     tamCabecalho++;
                 }
+                //pos 0 guarda tamanho do codigo
                 cods[i][0] = tamCod;
                 tamCabecalho += 4;
+                //pos 1 guarda o codigo criado
                 cods[i][1]   = cod;
-                cods[i][2]   = arq.readChar();
-                tamCabecalho += 2;
+                //guarda o codigo original
+                cods[i][2]   = (int)arq.readByte();
+                tamCabecalho += 1;
                 
             }
             
@@ -71,7 +75,9 @@ public class Descompactador
             {
                 for(int i=0; i<cods.length; i++)
                 {
-                    if(textoCompactado.indexOf((String)cods[i][1])== 0)
+                    if(textoCompactado.indexOf((String)cods[i][1])== 0)//dando erro no cast, é porque é um vetor de bytes
+                                                                       //tem que mudar esse metodo, porque o compactador tem ser
+                                                                        //generico
                     {
                         textoPronto += cods[i][2];
                         
@@ -89,7 +95,7 @@ public class Descompactador
             
             file.write(textoPronto);
             file.close();
-            */
+            
         }
         catch (Exception e) 
 	{

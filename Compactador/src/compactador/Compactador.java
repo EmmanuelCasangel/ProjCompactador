@@ -28,21 +28,11 @@ public class Compactador {
         System.out.println("Escreve o caminho do arquivo a ser descompactado"); 
         String nomeArq = d.readLine();
         
-        classes.Compactador c = new classes.Compactador(nomeArq);
-        String[] cods = c.Compactar();
+        //classes.Compactador c = new classes.Compactador(nomeArq);
+        //c.Compactar();
         
-        //Descompactador desc = new Descompactador(nomeArq);
-        String cod;
-       for(int i = 0; i< cods.length; i++)
-       {   
-           cod = cods[i];
-           
-           if(cod!=null)
-           {
-               p(""+i);
-               p(cod);
-           }
-       }
+        Descompactador desc = new Descompactador(nomeArq);
+       
         
         
         }
