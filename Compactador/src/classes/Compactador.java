@@ -132,11 +132,11 @@ public class Compactador {
                         int tamCod    =   cods[i].length();
                         byte[] codB = stringToByteArray(cods[i]);
                         //nao pode ser char te que ser byte
-                        char codAnt  = (char)i ;//tem que mudar
+                        byte codAnt  = (byte)i;
                         
                         arqNovo.writeInt(tamCod);
                         arqNovo.write(codB);
-                        arqNovo.writeChar(codAnt);//tem que mudar
+                        arqNovo.write(codAnt);
                     }
                 }                
                 arqNovo.write(stringToByteArray(txtEmCod));
