@@ -98,14 +98,13 @@ public class ArvoreCompactadora extends Arvore<Informacao>
                  throw new Exception ("Codigo passado não esta na arvore");
         }
         //else
-        
         if(str.charAt(0)=='0')
         {
-            str = str.substring(0, str.length()-1);
+            str = str.substring(1, str.length());
             return auxGetCod(atual.getEsq(), str);              
         }
         //str.charAt(0)=='1'
-        str = str.substring(0, str.length()-1);
+        str = str.substring(1, str.length());
         return auxGetCod(atual.getDir(), str);
         
                 
