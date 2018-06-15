@@ -47,22 +47,16 @@ public class Descompactador
                 //pos 1 guarda o codigo criado
                 cods[i][1]   = cod;
                 //guarda o codigo original
-                cods[i][2]   = (arq.readByte() & 0xFF);
-                tamCabecalho += 1;
+                cods[i][2]   = (arq.readByte() & 0xFF);//pega o valor de 0 a 255
+                tamCabecalho += 1;                      // e nao de -127 a 126
                 
             }
             
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
-            
-            //arq.read(textoEmByte);
-            for(int i=0; i<textoEmByte.length; i++)
-            {
-                textoEmByte[i]=arq.readByte();
-            }
-            
-            
+            arq.read(textoEmByte);     
             arq.close();
+            
             String textoCompactado = "";
             
             for(byte pedaco : textoEmByte )
