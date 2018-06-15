@@ -32,7 +32,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
         if (outra==null)
             throw new Exception ("Arvore ausente");
 
-        int freq = ((Informacao)(this.raiz.getInfo())).getFreq()+((Informacao)(outra.raiz.getInfo())).getFreq();
+        long freq = ((Informacao)(this.raiz.getInfo())).getFreq()+((Informacao)(outra.raiz.getInfo())).getFreq();
 
         Informacao info = new Informacao(freq);
         

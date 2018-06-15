@@ -9,8 +9,191 @@ import java.nio.file.Paths;
 
 
 
+
 public class Descompactador
 {
+    
+    ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
+    Object[][] cods;
+    private int qtd=0;
+    
+    public Descompactador(String nArq)
+    {
+        try 
+	{       
+            
+            RandomAccessFile arq = new RandomAccessFile(nArq,"r");
+            
+            
+            int qtdLixos = arq.readInt();
+            System.out.println(String.valueOf(qtdLixos));
+            int qtdCods = arq.readInt();
+            System.out.println(String.valueOf(qtdCods));
+            
+            int tamCabecalho = 8;
+            
+            
+            cods = new Object[qtdCods][4];
+            
+            for(int i=0; i<qtdCods;i++)
+            {
+                int tamCod   = arq.readInt();
+                int tamVet = (int) Math.ceil(tamCod/8.);  
+                byte[] cod = new byte[tamVet];
+                
+                
+                arq.read(cod);
+                tamCabecalho+= tamVet;
+                
+                //pos 0 guarda tamanho do codigo
+                cods[i][0] = tamCod;
+                tamCabecalho += 4;
+                //pos 1 guarda o codigo criado
+                cods[i][1]   = cod;
+                //pos 2 guarda a frequencia
+                cods[i][2]   = arq.readLong();
+                tamCabecalho += 8;
+                //pos 3 guarda o codigo original
+                cods[i][3]   = arq.read();
+                tamCabecalho += 1;                      
+                
+            }
+            
+            
+            int tamArq =(int)(long) arq.length();
+            byte[] textoEmByte = new byte[tamArq-tamCabecalho];
+            arq.read(textoEmByte);//tem lugares que ficam com valor negativo     
+            arq.close();
+            
+            String textoCompactado = "";
+            
+            for(byte pedaco : textoEmByte )
+            {    
+                String str  = Integer.toBinaryString(pedaco);
+
+                if(str.length()<8)
+                    str = completaString(str);
+
+                if(str.length()>8)
+                    str = str.substring(str.length()-8, str.length());
+                
+                textoCompactado += str;
+            }
+            
+            textoCompactado = textoCompactado.substring(qtdLixos);
+            System.out.println("TextoCompactado:");
+            System.out.println(textoCompactado);//ate aqui esta certo
+            
+            
+            
+            
+            iniciarVetor();
+            ordenarVetor();
+            mesclarArvores();
+            
+            int onde  = nArq.indexOf(".comp");
+            String nNovoArq = nArq.substring(0, onde);
+            
+            RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
+            
+            while(!textoCompactado.isEmpty())
+            {
+                
+            }
+            
+            escrevArq.close();
+            
+            
+            
+            
+            
+        }
+        catch (Exception e) 
+	{
+            e.printStackTrace();
+	}
+    }
+    
+  
+    
+    private void iniciarVetor()
+        {
+            ArvoreCompactadora<Informacao> arvoreC;
+
+            for(int i=0;i<=cods.length-1; i++)
+            {
+                if((long)cods[i][2]!=0)
+                {
+                    
+                    Informacao info = new Informacao((Integer)cods[i][3], (long)cods[i][2]);
+                    arvoreC = new ArvoreCompactadora(info);
+                    qtd++;
+                    arvores[qtd-1] = arvoreC;                    
+                }
+            }
+        }
+
+
+        private void ordenarVetor()
+        {
+        	for (int i = 0; i < qtd; i++) // mudado de qtd-1 para qtd.
+        	{
+                for (int h = 0; h < qtd; h++) //mudar aqui o i ; tem que ser  i < qtd, antigo estava h<1.
+                {                    
+                    if (arvores[i].getRaiz().getFreq() > arvores[h].getRaiz().getFreq())  //mudado aqui de < para >
+                    {
+                        ArvoreCompactadora<Informacao>aux  = arvores[i];
+                    
+                        arvores[i] = arvores[h];
+                        arvores[h] = aux; 
+                    }
+                }
+            }
+        }
+        
+        private void mesclarArvores()throws Exception
+        {
+            try
+            {
+                do
+                {                    qtd--;
+                    arvores[qtd-1].junteSe(arvores[qtd]);
+                    arvores[qtd] = null;
+                    reorganizarVetor();               
+                }
+                while(qtd>1);
+            }
+            catch(Exception erro)
+            {}
+            
+        }
+        
+        private void reorganizarVetor()
+        {
+        	ArvoreCompactadora<Informacao> aux;
+        	for(int i = qtd-1; i>0;i--)
+        	{
+        		if(arvores[i].getRaiz().getFreq()> arvores[i-1].getRaiz().getFreq())
+        		{
+        			aux          = arvores[i];
+        			arvores[i]   = arvores[i-1];
+        			arvores[i-1] = aux;
+        		}
+        		else
+        			break;
+        		
+        	}            
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    /* versao que nao passa a frequencia no cabecalho
+       e nao monta arvore 
     
     public Descompactador(String nArq)
     {
@@ -132,7 +315,7 @@ public class Descompactador
             
             RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
            
-            escrevArq.write(textoEmByte);*/
+            escrevArq.write(textoEmByte);
             
             
         }
@@ -140,7 +323,7 @@ public class Descompactador
 	{
             e.printStackTrace();
 	}
-    }
+    }*/
     
     private String completaString(String str)
     {

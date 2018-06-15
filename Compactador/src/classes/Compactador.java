@@ -130,13 +130,14 @@ public class Compactador {
                 {
                     if(cods[i]!=null)
                     {
-                        int tamCod    =   cods[i].length();
-                        byte[] codB = stringToByteArray(cods[i]);
-                        //nao pode ser char te que ser byte
-                        byte codAnt  = (byte)i;
+                        int tamCod    =   cods[i].length();//tamanho do codigo gerado
+                        byte[] codB = stringToByteArray(cods[i]);//cod gerado
+                        byte codAnt  = (byte)i;//codigo Anterior
+                        long freq  = bytesArqLido[codAnt];//frquencia do codigo
                         
                         arqNovo.writeInt(tamCod);
                         arqNovo.write(codB);
+                        arqNovo.writeLong(freq);//para que eu possa montar a arvore do outro lado
                         arqNovo.write(codAnt);
                     }
                 }

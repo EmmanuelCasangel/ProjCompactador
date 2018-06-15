@@ -3,14 +3,14 @@ package classes;
 public class Informacao
 {
     protected Integer cod;
-    protected int frequencia;
+    protected long frequencia;
 
     public Integer getCod()
     {
         return this.cod;
     }
 
-    public int getFreq()
+    public long getFreq()
     {
         return this.frequencia;
     }
@@ -20,18 +20,18 @@ public class Informacao
         this.cod = c;
     }
 
-    public void setFreq(int f)
+    public void setFreq(long f)
     {
          this.frequencia = f;
     }
 
-    public Informacao(Integer c, int freq)
+    public Informacao(Integer c, long freq)
     {
         this.cod = c;
         this.frequencia = freq;
     }
 
-    public Informacao(int freq)
+    public Informacao(long freq)
     {
         this(null, freq);
     }
@@ -70,7 +70,7 @@ public class Informacao
         int ret = 666;
         
         ret += ret*5 + this.cod.hashCode();
-        ret += ret*5 + new Integer(this.frequencia).hashCode();
+        ret += ret*5 + new Long(this.frequencia).hashCode();
         
         return ret;        
     }
