@@ -140,7 +140,9 @@ public class Compactador {
                         arqNovo.write(codAnt);
                     }
                 }                
-                arqNovo.write(stringToByteArray(txtEmCod));
+                
+                byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
+                arqNovo.write(texto);                       //ante de ser escrito no arquivo
                 arqNovo.close();
            
             }
