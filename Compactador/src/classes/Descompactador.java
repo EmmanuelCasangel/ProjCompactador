@@ -80,7 +80,9 @@ public class Descompactador
                     for(byte pedCod:(byte[])cods[i][1])
                         cod+= Integer.toBinaryString(pedCod);//passa o codigo que nos geramos, que
                                                              //é um byte[], para uma string
-                    cod = cod.substring(cod.length()-(int)cods[i][0]);//retira o lixo
+                    
+                    int lixo = cod.length()-(int)cods[i][0];
+                    cod = cod.substring(lixo);//retira o lixo
                             
                     if(textoCompactado.indexOf(cod)== 0)
                                                         
