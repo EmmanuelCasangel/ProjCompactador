@@ -156,7 +156,8 @@ public class Descompactador
             try
             {
                 do
-                {                    qtd--;
+                {   
+                    qtd--;
                     arvores[qtd-1].junteSe(arvores[qtd]);
                     arvores[qtd] = null;
                     reorganizarVetor();               
@@ -175,12 +176,12 @@ public class Descompactador
         	{
         		if(arvores[i].getRaiz().getFreq()> arvores[i-1].getRaiz().getFreq())
         		{
-        			aux          = arvores[i];
-        			arvores[i]   = arvores[i-1];
-        			arvores[i-1] = aux;
+                            aux          = arvores[i];
+                            arvores[i]   = arvores[i-1];
+                            arvores[i-1] = aux;
         		}
         		else
-        			break;
+                            break;
         		
         	}            
         }
