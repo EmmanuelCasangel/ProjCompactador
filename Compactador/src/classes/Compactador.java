@@ -107,7 +107,7 @@ public class Compactador {
 		for (byte b : this.textoEmByte)
                 {
                     //funcionou o txtEmCod, pelo menos com texto 
-                    txtEmCod += cods[b];
+                    txtEmCod += cods[(b&0xFF)];
 		}
                 
                 int qtdCods = 0;
@@ -140,9 +140,9 @@ public class Compactador {
                         arqNovo.write(codAnt);
                     }
                 }                
-                
-                byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
-                arqNovo.write(texto);                       //ante de ser escrito no arquivo
+                System.out.println(txtEmCod);
+               // byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
+                //arqNovo.write(texto);                       //ante de ser escrito no arquivo
                 arqNovo.close();
            
             }
@@ -170,9 +170,10 @@ public class Compactador {
         
         private String completaString(String str)
         {
-            while(str.length()%8!=0)
+            int qtd_bits_sobrando = 8 - str.length() % 8;
+            for (int i = 0; i < qtd_bits_sobrando; i++) 
             {
-                str = "0"+str;
+                str += "0";
             }
             return str;
         }

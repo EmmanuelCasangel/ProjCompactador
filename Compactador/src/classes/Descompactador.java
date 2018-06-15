@@ -52,6 +52,7 @@ public class Descompactador
                 
             }
             
+            
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
             arq.read(textoEmByte);     
@@ -100,7 +101,7 @@ public class Descompactador
             
             //fiz ate aqui por enquanto
             
-            byte[] textoPronto = textoDescompactado.listaToByteArray();
+            /*byte[] textoPronto = textoDescompactado.listaToByteArray();
             
             
             int onde  = nArq.indexOf(".comp");
@@ -108,7 +109,7 @@ public class Descompactador
             
             RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
            
-            escrevArq.write(textoEmByte);
+            escrevArq.write(textoEmByte);*/
             
             
         }
