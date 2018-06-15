@@ -95,6 +95,10 @@ public class Descompactador
                                                              //é um byte[], para uma string
                     
                     cod = completaString(cod);
+                    while(cod.length()<(int)cods[i][0])
+                        cod = "0" + cod; 
+                    
+                    
                                                              
                     int lixo;
                     lixo = cod.length()-(int)cods[i][0];
