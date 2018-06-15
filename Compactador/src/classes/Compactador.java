@@ -142,7 +142,7 @@ public class Compactador {
                 }                
                 System.out.println(txtEmCod);
                 byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
-                //arqNovo.write(texto);                       //ante de ser escrito no arquivo
+                arqNovo.write(texto);                       //ante de ser escrito no arquivo
                 arqNovo.close();
            
             }
@@ -161,8 +161,8 @@ public class Compactador {
             
             
             byte[] ret = new byte[tamVet];
-            
-            /*for(int i=0; i<tamVet; i++)
+            /*
+            for(int i=0; i<tamVet-1; i++)
             {
                 ret[i] = (byte)Integer.parseInt(strC.substring(i*8, (i*8)+8),2);
             }*/

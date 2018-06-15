@@ -55,7 +55,7 @@ public class Descompactador
             
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
-            arq.read(textoEmByte);     
+            arq.read(textoEmByte);//tem lugares que ficam com valor negativo     
             arq.close();
             
             String textoCompactado = "";
