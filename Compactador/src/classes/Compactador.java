@@ -14,7 +14,7 @@ public class Compactador {
 	private String nomeArq;
 	private int[] bytesArqLido = new int[256];
 	private RandomAccessFile arq; //cria o arquivo
-        ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
+        ArvoreCompactadora[] arvores = new ArvoreCompactadora[256];
         private int qtd=0;
        
 	
@@ -126,6 +126,7 @@ public class Compactador {
                 arqNovo.writeInt(qtdCods);
                 
                 
+                
                 for(int i=0; i<cods.length;i++)
                 {
                     if(cods[i]!=null)
@@ -207,7 +208,7 @@ public class Compactador {
 
         private void iniciarVetor()
         {
-            ArvoreCompactadora<Informacao> arvoreC;
+            ArvoreCompactadora arvoreC;
 
             for(int i=0;i<=bytesArqLido.length-1; i++)
             {
@@ -231,7 +232,7 @@ public class Compactador {
                 {                    
                     if (arvores[i].getRaiz().getFreq() > arvores[h].getRaiz().getFreq())  //mudado aqui de < para >
                     {
-                        ArvoreCompactadora<Informacao>aux  = arvores[i];
+                        ArvoreCompactadora aux  = arvores[i];
                     
                         arvores[i] = arvores[h];
                         arvores[h] = aux; 
@@ -259,7 +260,7 @@ public class Compactador {
         
         private void reorganizarVetor()
         {
-        	ArvoreCompactadora<Informacao> aux;
+        	ArvoreCompactadora aux;
         	for(int i = qtd-1; i>0;i--)
         	{
         		if(arvores[i].getRaiz().getFreq()> arvores[i-1].getRaiz().getFreq())

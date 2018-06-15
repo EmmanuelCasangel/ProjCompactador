@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class Descompactador
 {
     
-    ArvoreCompactadora<Informacao>[] arvores = new ArvoreCompactadora[256];
+    ArvoreCompactadora[] arvores = new ArvoreCompactadora[256];
     Object[][] cods;
     private int qtd=0;
     
@@ -118,7 +118,7 @@ public class Descompactador
     
     private void iniciarVetor()
         {
-            ArvoreCompactadora<Informacao> arvoreC;
+            ArvoreCompactadora arvoreC;
 
             for(int i=0;i<=cods.length-1; i++)
             {
@@ -142,7 +142,7 @@ public class Descompactador
                 {                    
                     if (arvores[i].getRaiz().getFreq() > arvores[h].getRaiz().getFreq())  //mudado aqui de < para >
                     {
-                        ArvoreCompactadora<Informacao>aux  = arvores[i];
+                        ArvoreCompactadora aux  = arvores[i];
                     
                         arvores[i] = arvores[h];
                         arvores[h] = aux; 
@@ -171,7 +171,7 @@ public class Descompactador
         
         private void reorganizarVetor()
         {
-        	ArvoreCompactadora<Informacao> aux;
+        	ArvoreCompactadora aux;
         	for(int i = qtd-1; i>0;i--)
         	{
         		if(arvores[i].getRaiz().getFreq()> arvores[i-1].getRaiz().getFreq())

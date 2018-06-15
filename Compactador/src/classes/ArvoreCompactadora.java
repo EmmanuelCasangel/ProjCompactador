@@ -85,7 +85,28 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         if (this.raiz==null)
             throw new Exception ("Arvore ausente");
         
+        return auxGetCod(this.raiz, strCodCriado);
+    }
+    
+    private byte auxGetCod(No atual, String str)
+    {
+        if(str=="")
+        {  
+            if(atual.getInfo().getCod()!=null)
+               return (byte)atual.getInfo().getCod();
+        }
+       
         
+        if(str.charAt(0)=='0')
+        {
+            str = str.substring(0, str.length()-1);
+            return auxGetCod(atual.getEsq(), str);              
+        }
+        //str.charAt(0)=='1'
+        str = str.substring(0, str.length()-1);
+        return auxGetCod(atual.getDir(), str);
+        
+                
     }
     
     
