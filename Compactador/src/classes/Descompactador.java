@@ -91,6 +91,8 @@ public class Descompactador
             ordenarVetor();
             mesclarArvores();
             
+            
+            
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde);
             
@@ -99,6 +101,7 @@ public class Descompactador
             while(!textoCompactado.isEmpty())
             {
                 //criar um metodo na arvore para pegar os codigos
+                
             }
             
             escrevArq.close();

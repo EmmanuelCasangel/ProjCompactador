@@ -106,6 +106,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         //str.charAt(0)=='1'
         str = str.substring(1, str.length());
         return auxGetCod(atual.getDir(), str);
+        //acho que vai ter que retornar todos os codigos
         
                 
     }
