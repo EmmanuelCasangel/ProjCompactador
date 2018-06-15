@@ -100,9 +100,40 @@ public class Descompactador
             
             while(!textoCompactado.isEmpty())
             {
-                //criar um metodo na arvore para pegar os codigos
+               for(int i=0; i<cods.length; i++)
+                {
+                    String cod="";
+                    for(byte pedCod:(byte[])cods[i][1])
+                        cod+= Integer.toBinaryString((byte)pedCod);//passa o codigo que nos geramos, que
+                                                             //é um byte[], para uma string
+                   
+                    while(cod.length()<(int)cods[i][0])
+                        cod = "0" + cod; 
+                     cod = completaString(cod);
+                    
+                    
+                                                             
+                    int lixo;
+                    lixo = cod.length()-(int)cods[i][0];
+                    cod  = cod.substring(lixo);//retira o lixo
+                            
+                    if(textoCompactado.indexOf(cod)== 0)
+                                                        
+                    {
+                        
+                        escrevArq.write(((int)cods[i][2]));
+                        
+                        
+                        if((int)cods[i][0] > textoCompactado.length())
+                            textoCompactado = "";
+                        else
+                            textoCompactado = textoCompactado.substring((int)cods[i][0]);
+                    } 
+                }
                 
             }
+            
+            
             
             escrevArq.close();
             
