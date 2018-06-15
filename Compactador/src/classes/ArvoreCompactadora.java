@@ -2,32 +2,37 @@ package classes;
 import java.lang.reflect.*;
 import classes.arvore.*;
 
-public class ArvoreCompactadora<X> extends Arvore<X>
+public class ArvoreCompactadora extends Arvore<Informacao>
 {
    
 
     protected String[] cods; 
     
-    public void insere(X x)
+    public void insere(Informacao x)
     {
         if(this.raiz==null)
             this.raiz = new No(x);
     }    
 
-    public ArvoreCompactadora (X x)
+    public ArvoreCompactadora (Informacao x)
     {
         this.raiz = new No(x);
     }
     
-    public X getRaiz()
+    public Informacao getRaiz()
     {
         if (this.raiz instanceof Cloneable)
             return super.meuCloneDeX (raiz.getInfo());
         else
             return this.raiz.getInfo();
     }
-
-    public void junteSe(ArvoreCompactadora<X> outra) throws Exception//funciona
+    
+    /**
+     *
+     * @param outra
+     * @throws Exception
+     */
+    public void junteSe(ArvoreCompactadora outra) throws Exception//funciona
     {
         if (outra==null)
             throw new Exception ("Arvore ausente");
@@ -36,7 +41,7 @@ public class ArvoreCompactadora<X> extends Arvore<X>
 
         Informacao info = new Informacao(freq);
         
-        No novaRaiz = new No(this.raiz, (X)info, outra.raiz);
+        No novaRaiz = new No(this.raiz, info, outra.raiz);
         
         this.raiz = novaRaiz;
     }
@@ -75,9 +80,37 @@ public class ArvoreCompactadora<X> extends Arvore<X>
 
     }
     
+    public byte  getCodOriginal(String strCodCriado)throws Exception
+    {
+        if (this.raiz==null)
+            throw new Exception ("Arvore ausente");
+        
+        
+    }
+    
+    
+    public ArvoreCompactadora (ArvoreCompactadora modelo)throws Exception
+    {
+        if(modelo==null)
+            throw new Exception ("Modelo ausente");
+        
+        auxConstrutor(this.raiz, modelo.raiz);
+    }
+    
+    private void auxConstrutor(No atualThis, No atualModelo)
+    {
+        if(atualModelo!= null)
+        {
+            atualThis = new No(this.meuCloneDeX(atualModelo.getInfo()));
+            
+            auxConstrutor(atualThis.getEsq(), atualModelo.getEsq());
+            auxConstrutor(atualThis.getDir(), atualModelo.getDir());
+        }
+    }
+    
     public Object clone ()
     {
-       ArvoreCompactadora<X> ret=null;
+       ArvoreCompactadora ret=null;
 
         try
         {
