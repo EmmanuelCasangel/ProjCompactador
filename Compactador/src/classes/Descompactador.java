@@ -46,8 +46,8 @@ public class Descompactador
                 //pos 1 guarda o codigo criado
                 cods[i][1]   = cod;
                 //guarda o codigo original
-                cods[i][2]   = (arq.readByte() & 0xFF);//pega o valor de 0 a 255
-                tamCabecalho += 1;                      // e nao de -127 a 126
+                cods[i][2]   = arq.read();
+                tamCabecalho += 1;                      
                 
             }
             
@@ -71,10 +71,20 @@ public class Descompactador
                 
                 textoCompactado += str;
             }
+            
+            textoCompactado = textoCompactado.substring(qtdLixos);
             System.out.println("TextoCompactado:");
             System.out.println(textoCompactado);//ate aqui esta certo
             
-            ListaByte textoDescompactado = new ListaByte();
+            
+            
+            
+            //ListaByte textoDescompactado = new ListaByte();
+            int onde  = nArq.indexOf(".comp");
+            String nNovoArq = nArq.substring(0, onde);
+            
+            RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
+            
             while(!textoCompactado.isEmpty())
             {
                 for(int i=0; i<cods.length; i++)
@@ -84,13 +94,17 @@ public class Descompactador
                         cod+= Integer.toBinaryString((byte)pedCod);//passa o codigo que nos geramos, que
                                                              //é um byte[], para uma string
                     
+                    cod = completaString(cod);
+                                                             
                     int lixo = cod.length()-(int)cods[i][0];
                     cod = cod.substring(lixo);//retira o lixo
                             
                     if(textoCompactado.indexOf(cod)== 0)
                                                         
                     {
-                        textoDescompactado.insiraNoFim((byte)cods[i][2]);
+                        //textoDescompactado.insiraNoFim((byte)cods[i][2]);
+                        escrevArq.write(((int)cods[i][2]));
+                        
                         
                         if((int)cods[i][0] > textoCompactado.length())
                             textoCompactado = "";
@@ -99,6 +113,9 @@ public class Descompactador
                     }                   
                 }
             }
+            
+            escrevArq.close();
+            
             
             //fiz ate aqui por enquanto
             

@@ -33,6 +33,7 @@ public class Compactador {
         
         Descompactador desc = new Descompactador(nomeArq);
        
+        p("Acabou");
         
         
         }
