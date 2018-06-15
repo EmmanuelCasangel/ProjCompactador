@@ -70,16 +70,21 @@ public class Descompactador
                 textoCompactado += str;
             }
             
-            String textoPronto = "";
+            Lista<Byte> textoDescompactado = new Lista();
             while(!textoCompactado.isEmpty())
             {
                 for(int i=0; i<cods.length; i++)
                 {
-                    if(textoCompactado.indexOf((String)cods[i][1])== 0)//dando erro no cast, é porque é um vetor de bytes
-                                                                       //tem que mudar esse metodo, porque o compactador tem ser
-                                                                        //generico
+                    String cod="";
+                    for(byte pedCod:(byte[])cods[i][1])
+                        cod+= Integer.toBinaryString(pedCod);//passa o codigo que nos geramos, que
+                                                             //é um byte[], para uma string
+                    cod = cod.substring(cod.length()-(int)cods[i][0]);//retira o lixo
+                            
+                    if(textoCompactado.indexOf(cod)== 0)
+                                                        
                     {
-                        textoPronto += cods[i][2];
+                        textoDescompactado.insiraNoFim((byte)cods[i][2]);
                         
                         if((int)cods[i][0] > textoCompactado.length())
                             textoCompactado = "";
@@ -93,7 +98,7 @@ public class Descompactador
             String nNovoArq = nArq.substring(0, onde-1);
             FileWriter file = new FileWriter(nNovoArq);
             
-            file.write(textoPronto);
+            //file.write(textoPronto);
             file.close();
             
         }
