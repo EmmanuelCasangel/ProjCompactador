@@ -139,7 +139,8 @@ public class Compactador {
                         arqNovo.write(codB);
                         arqNovo.write(codAnt);
                     }
-                }                
+                }
+                
                 System.out.println(txtEmCod);
                 byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
                 arqNovo.write(texto);                       //ante de ser escrito no arquivo
@@ -174,6 +175,8 @@ public class Compactador {
 	    	
 	    	if (auxStr.length() % 8 == 0) {
 		    ret[index] = (byte)Integer.parseInt(auxStr, 2);
+                    System.out.println("----------------------------------------------------");
+                    System.out.println(auxStr);
 		    index++;
 		    auxStr = "";
 	    	}

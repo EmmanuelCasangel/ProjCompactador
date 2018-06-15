@@ -25,7 +25,7 @@ public class Descompactador
             int qtdCods = arq.readInt();
             System.out.println(String.valueOf(qtdCods));
             
-            int tamCabecalho = 2;
+            int tamCabecalho = 8;
             
             
             Object[][] cods = new Object[qtdCods][3];
@@ -36,11 +36,10 @@ public class Descompactador
                 int tamVet = (int) Math.ceil(tamCod/8.);  
                 byte[] cod = new byte[tamVet];
                 
-                for(int j=0; j<tamVet; j++)
-                {
-                    cod[j] = arq.readByte();
-                    tamCabecalho++;
-                }
+                
+                arq.read(cod);
+                tamCabecalho+= tamVet;
+                
                 //pos 0 guarda tamanho do codigo
                 cods[i][0] = tamCod;
                 tamCabecalho += 4;
@@ -64,15 +63,17 @@ public class Descompactador
             {    
                 String str  = Integer.toBinaryString(pedaco);
 
-                //if(str.length()<8)
-                    //str = completaString(str);
+                if(str.length()<8)
+                    str = completaString(str);
 
                 if(str.length()>8)
                     str = str.substring(str.length()-8, str.length());
                 
                 textoCompactado += str;
             }
-            System.out.println(textoCompactado);
+            System.out.println("TextoCompactado:");
+            System.out.println(textoCompactado);//ate aqui esta certo
+            
             ListaByte textoDescompactado = new ListaByte();
             while(!textoCompactado.isEmpty())
             {
@@ -80,7 +81,7 @@ public class Descompactador
                 {
                     String cod="";
                     for(byte pedCod:(byte[])cods[i][1])
-                        cod+= Integer.toBinaryString(pedCod);//passa o codigo que nos geramos, que
+                        cod+= Integer.toBinaryString((byte)pedCod);//passa o codigo que nos geramos, que
                                                              //é um byte[], para uma string
                     
                     int lixo = cod.length()-(int)cods[i][0];
