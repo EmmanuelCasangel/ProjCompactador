@@ -98,7 +98,7 @@ public class Descompactador
             
             while(!textoCompactado.isEmpty())
             {
-                
+                //criar um metodo na arvore para pegar os codigos
             }
             
             escrevArq.close();
