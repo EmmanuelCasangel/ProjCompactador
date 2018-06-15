@@ -47,6 +47,46 @@ public class Lista<X>
     {
         this.prim = null;
     }
+    
+   public void insiraNoInicio (X x) throws Exception
+    {
+        if (x==null)
+            throw new Exception ("Informacao ausente");
+
+        X info;
+        if (x instanceof Cloneable)
+            info = meuCloneDeX(x);
+        else
+            info = x;
+
+        this.prim = new No (info,this.prim);
+    }
+
+
+
+    public void insiraNoFim (X x) throws Exception
+    {
+        if (x==null)
+            throw new Exception ("Informacao ausente");
+
+         X info;
+        if (x instanceof Cloneable)
+            info = meuCloneDeX(x);
+        else
+            info = x;
+
+        if(this.prim.prox==null)
+            this.prim = new No(info);
+        else
+        {
+            No atual= this.prim;
+           
+            while(atual.getProx()!=null)
+                atual=atual.getProx();
+
+            atual.setProx(new No (info)); 
+        }
+    }
 
     public X getPrim()throws Exception
     {
@@ -212,7 +252,7 @@ public class Lista<X>
         Lista<X> ret=null;
         try
         {
-            ret = new Lista<X>(this);
+            ret = new Lista(this);
         }
         catch(Exception erro)
         {}
@@ -249,5 +289,5 @@ public class Lista<X>
 
     }
 
-  
+    
 }
