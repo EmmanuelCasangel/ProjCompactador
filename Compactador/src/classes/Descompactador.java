@@ -96,8 +96,9 @@ public class Descompactador
                     
                     cod = completaString(cod);
                                                              
-                    int lixo = cod.length()-(int)cods[i][0];
-                    cod = cod.substring(lixo);//retira o lixo
+                    int lixo;
+                    lixo = cod.length()-(int)cods[i][0];
+                    cod  = cod.substring(lixo);//retira o lixo
                             
                     if(textoCompactado.indexOf(cod)== 0)
                                                         
@@ -109,7 +110,7 @@ public class Descompactador
                         if((int)cods[i][0] > textoCompactado.length())
                             textoCompactado = "";
                         else
-                            textoCompactado = textoCompactado.substring(textoCompactado.length()-(int)cods[i][0]);
+                            textoCompactado = textoCompactado.substring((int)cods[i][0]);
                     }                   
                 }
             }
