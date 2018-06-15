@@ -1,4 +1,4 @@
-package classes;
+package classes.lista;
 import java.lang.reflect.*;
 
 public class Lista<X>
