@@ -55,6 +55,7 @@ public class Descompactador
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
             arq.read(textoEmByte);
+            arq.close();
             String textoCompactado = "";
             
             for(byte pedaco : textoEmByte )
@@ -96,15 +97,16 @@ public class Descompactador
             
             //fiz ate aqui por enquanto
             
-            byte[] textoPronto = new byte[textoDescompactado.tamanho()];
+            byte[] textoPronto = textoDescompactado.listaToByteArray();
             
             
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde-1);
-            FileWriter file = new FileWriter(nNovoArq);
             
-            //file.write(textoPronto);
-            file.close();
+            RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
+           
+            escrevArq.write(textoEmByte);
+            
             
         }
         catch (Exception e) 
