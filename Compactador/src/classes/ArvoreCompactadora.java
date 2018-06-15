@@ -80,7 +80,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
 
     }
     
-    public byte  getCodOriginal(String strCodCriado)throws Exception
+    public int  getCodOriginal(String strCodCriado)throws Exception
     {
         if (this.raiz==null)
             throw new Exception ("Arvore ausente");
@@ -88,14 +88,16 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         return auxGetCod(this.raiz, strCodCriado);
     }
     
-    private byte auxGetCod(No atual, String str)
+    private int auxGetCod(No atual, String str)throws Exception
     {
         if(str=="")
         {  
             if(atual.getInfo().getCod()!=null)
-               return (byte)atual.getInfo().getCod();
+               return atual.getInfo().getCod();
+            else
+                 throw new Exception ("Codigo passado não esta na arvore");
         }
-       
+        //else
         
         if(str.charAt(0)=='0')
         {
