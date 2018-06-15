@@ -141,7 +141,7 @@ public class Compactador {
                     }
                 }                
                 System.out.println(txtEmCod);
-               // byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
+                byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
                 //arqNovo.write(texto);                       //ante de ser escrito no arquivo
                 arqNovo.close();
            
@@ -157,13 +157,27 @@ public class Compactador {
         {
             String strC = completaString(str);
             
-            int tamVet = (int) Math.ceil(strC.length()/8.);
+            int tamVet = strC.length()/8;//(int) Math.ceil(strC.length()/8.);
+            
+            
             byte[] ret = new byte[tamVet];
             
-            for(int i=0; i<tamVet; i++)
+            /*for(int i=0; i<tamVet; i++)
             {
                 ret[i] = (byte)Integer.parseInt(strC.substring(i*8, (i*8)+8),2);
-            }
+            }*/
+            
+            String auxStr ="";
+            int index = 0;
+	    for (int i = strC.length()-1; i >= 0; i--) {
+	    	auxStr += strC.charAt(strC.length()-1 -i);
+	    	
+	    	if (auxStr.length() % 8 == 0) {
+		    ret[index] = (byte)Integer.parseInt(auxStr, 2);
+		    index++;
+		    auxStr = "";
+	    	}
+	    }
             
             return ret;
         }
@@ -174,6 +188,9 @@ public class Compactador {
             {
                 str = "0"+str;
             }
+            System.out.println("---------------------------------------------------------------");
+            System.out.println(str);
+            //essa parte esta dando certo
             
             /*int sobrando = 8 - str.length() % 8;
             for (int i = 0; i < sobrando; i++) 
