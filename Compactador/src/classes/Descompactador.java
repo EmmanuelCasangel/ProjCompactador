@@ -38,7 +38,7 @@ public class Descompactador
                 
                 for(int j=0; j<tamVet; j++)
                 {
-                    cod[j] = (byte)arq.read();//acho que resolvi o erro
+                    cod[j] = arq.readByte();
                     tamCabecalho++;
                 }
                 //pos 0 guarda tamanho do codigo
@@ -47,14 +47,21 @@ public class Descompactador
                 //pos 1 guarda o codigo criado
                 cods[i][1]   = cod;
                 //guarda o codigo original
-                cods[i][2]   = (int)arq.readByte();
+                cods[i][2]   = (arq.readByte() & 0xFF);
                 tamCabecalho += 1;
                 
             }
             
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
-            arq.read(textoEmByte);
+            
+            //arq.read(textoEmByte);
+            for(int i=0; i<textoEmByte.length; i++)
+            {
+                textoEmByte[i]=arq.readByte();
+            }
+            
+            
             arq.close();
             String textoCompactado = "";
             
@@ -62,15 +69,15 @@ public class Descompactador
             {    
                 String str  = Integer.toBinaryString(pedaco);
 
-                if(str.length()<8)
-                    str = completaString(str);
+                //if(str.length()<8)
+                    //str = completaString(str);
 
                 if(str.length()>8)
                     str = str.substring(str.length()-8, str.length());
                 
                 textoCompactado += str;
             }
-            
+            System.out.println(textoCompactado);
             ListaByte textoDescompactado = new ListaByte();
             while(!textoCompactado.isEmpty())
             {
