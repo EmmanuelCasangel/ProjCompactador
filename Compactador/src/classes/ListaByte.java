@@ -13,8 +13,9 @@ public class ListaByte extends Lista<Byte>
         
         No atual= this.prim;
         
-        for(int i; i<tam; i++)
+        for(int i=0; i<tam; i++)
         {
+            ret[i] = atual.getInfo();
             atual=atual.getProx();
             
         }
