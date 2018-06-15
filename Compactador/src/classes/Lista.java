@@ -48,7 +48,23 @@ public class Lista<X>
         this.prim = null;
     }
     
-   public void insiraNoInicio (X x) throws Exception
+   public int tamanho()//fiz para saber o tamanho
+   {
+       int ret = 0;
+       
+        No atual= this.prim;
+           
+        while(atual!=null)
+        {
+            atual=atual.getProx();
+            ret++;
+        }
+        
+        return ret;
+   }
+    
+    
+    public void insiraNoInicio (X x) throws Exception
     {
         if (x==null)
             throw new Exception ("Informacao ausente");
