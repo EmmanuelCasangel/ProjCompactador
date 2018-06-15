@@ -91,7 +91,7 @@ public class Lista<X>
         else
             info = x;
 
-        if(this.prim.prox==null)
+        if(this.prim==null)//aqui muda para this.prim
             this.prim = new No(info);
         else
         {
