@@ -70,7 +70,7 @@ public class Descompactador
                 textoCompactado += str;
             }
             
-            Lista<Byte> textoDescompactado = new Lista();
+            ListaByte textoDescompactado = new ListaByte();
             while(!textoCompactado.isEmpty())
             {
                 for(int i=0; i<cods.length; i++)
@@ -93,6 +93,11 @@ public class Descompactador
                     }                   
                 }
             }
+            
+            //fiz ate aqui por enquanto
+            
+            byte[] textoPronto = new byte[textoDescompactado.tamanho()];
+            
             
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde-1);
