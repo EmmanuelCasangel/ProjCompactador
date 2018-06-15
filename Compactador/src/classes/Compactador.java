@@ -170,11 +170,17 @@ public class Compactador {
         
         private String completaString(String str)
         {
-            int qtd_bits_sobrando = 8 - str.length() % 8;
-            for (int i = 0; i < qtd_bits_sobrando; i++) 
+            while(str.length()%8!=0)
+            {
+                str = "0"+str;
+            }
+            
+            /*int sobrando = 8 - str.length() % 8;
+            for (int i = 0; i < sobrando; i++) 
             {
                 str += "0";
-            }
+            }*/
+            
             return str;
         }
 
