@@ -89,11 +89,11 @@ public class Descompactador
                         if((int)cods[i][0] > textoCompactado.length())
                             textoCompactado = "";
                         else
-                            textoCompactado = textoCompactado.substring((int)cods[i][0],textoCompactado.length());
+                            textoCompactado = textoCompactado.substring(textoCompactado.length()-(int)cods[i][0]);
                     }                   
                 }
             }
-            //escrevaArq(textoPronto, nNovoArq);
+            
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde-1);
             FileWriter file = new FileWriter(nNovoArq);
