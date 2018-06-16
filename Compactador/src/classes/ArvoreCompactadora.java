@@ -1,12 +1,17 @@
 package classes;
 import java.lang.reflect.*;
 import classes.arvore.*;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ArvoreCompactadora extends Arvore<Informacao>
 {
    
 
     protected String[] cods; 
+    RandomAccessFile escrevArq;
     
     public void insere(Informacao x)
     {
@@ -82,28 +87,50 @@ public class ArvoreCompactadora extends Arvore<Informacao>
     
     
     
-    public int  getCodOriginal(String str)throws Exception
+    public void  descompacta(String nomeArq, String txtComp)throws Exception
     {
         if (this.raiz==null)
             throw new Exception ("Arvore ausente");
         
-        No atual=this.raiz;
+       escrevArq = new RandomAccessFile(nomeArq,"rw");
         
-        while(atual.getInfo().getCod()==null)
-        {
-            if(str.charAt(0)=='0')
+       auxDescomp(this.raiz,txtComp);
+        
+       escrevArq.close();
+    }
+    
+    
+    private void auxDescomp(No atual, String str)
+    {
+        
+        if(!"".equals(str))
+        {    
+            if(atual.getInfo().getCod()!=null)
             {
-                str = str.substring(1, str.length());
-                atual = atual.getEsq();
+                try {
+                    escrevArq.write(atual.getInfo().getCod());
+                } catch (IOException ex) {
+                    Logger.getLogger(ArvoreCompactadora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                auxDescomp(this.raiz, str);
             }
-            else//str.charAt(0)=='1'
+            else
             {
-                str = str.substring(1, str.length());
-                atual = atual.getDir();
-            }        
+                if(str.charAt(0)=='0')
+                {
+                    str = str.substring(1, str.length());
+                    auxDescomp(atual.getEsq(), str);              
+                }
+                else//str.charAt(0)=='1'
+                {
+                    str = str.substring(1, str.length());
+                    auxDescomp(atual.getDir(), str);
+                }
+            }
         }
-        
-        return atual.getInfo().getCod();
+                
+                
     }
     
    /* public int  getCodOriginal(String strCodCriado)throws Exception

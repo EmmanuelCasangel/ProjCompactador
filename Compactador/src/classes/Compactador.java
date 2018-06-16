@@ -76,7 +76,8 @@ public class Compactador {
                 lerArquivo();                 
                 iniciarVetor();
                 ordenarVetor();
-                mesclarArvores();               
+                mesclarArvores();
+                System.out.println(arvores[0].toString());
                 finalizarCompactacao();
                 System.out.println("Compactou"); 
                 
@@ -140,7 +141,7 @@ public class Compactador {
                         arqNovo.write(codAnt);
                     }
                 }
-                
+                System.out.println("texto compactado:");
                 System.out.println(txtEmCod);
                 byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
                 arqNovo.write(texto);                       //ante de ser escrito no arquivo

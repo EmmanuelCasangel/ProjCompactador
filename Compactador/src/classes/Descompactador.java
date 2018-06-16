@@ -93,53 +93,13 @@ public class Descompactador
             ordenarVetor();
             mesclarArvores();
             
-            
+            System.out.println(arvores[0].toString());
             
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde);
-            
-            RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
-            
-            int index = 0;
-            while(!textoCompactado.isEmpty())
-            {
-               
-                
-                    String cod="";
-                    for(byte pedCod:(byte[])cods[index][1])
-                        cod+= Integer.toBinaryString((byte)pedCod);
-                                                             
-                    while(cod.length()<(int)cods[index][0])
-                        cod = "0" + cod; 
-                     cod = completaString(cod);
+
+            arvores[0].descompacta(nNovoArq, textoCompactado);                     
                     
-                    
-                                                             
-                    int lixo;
-                    lixo = cod.length()-(int)cods[index][0];
-                    cod  = cod.substring(lixo);//retira o lixo
-                            
-                                                                          
-                    int codAnt = arvores[0].getCodOriginal(cod);
-                        
-                    escrevArq.write(codAnt);
-                        
-                        
-                    if((int)cods[index][0] > textoCompactado.length())
-                        textoCompactado = "";
-                    else
-                        textoCompactado = textoCompactado.substring((int)cods[index][0]);
-                    
-                
-                
-            }
-            
-            
-            
-            escrevArq.close();
-            
-            
-            
             
             
         }
@@ -152,7 +112,7 @@ public class Descompactador
   
     
     private void iniciarVetor()
-        {
+    {
             ArvoreCompactadora arvoreC;
 
             for(int i=0;i<=cods.length-1; i++)
@@ -221,6 +181,16 @@ public class Descompactador
         	}            
         }
     
+    
+    
+    private String completaString(String str)
+    {
+        while(str.length()%8!=0)
+        {
+            str = "0"+str;
+        }
+        return str;
+    }
     
     
     
@@ -361,15 +331,5 @@ public class Descompactador
 	}
     }*/
     
-    private String completaString(String str)
-    {
-        while(str.length()%8!=0)
-        {
-            str = "0"+str;
-        }
-        return str;
-    }
-    
-    
-    
+ 
 }
