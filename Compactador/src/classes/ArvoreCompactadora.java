@@ -37,7 +37,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         if (outra==null)
             throw new Exception ("Arvore ausente");
 
-        long freq = ((Informacao)(this.raiz.getInfo())).getFreq()+((Informacao)(outra.raiz.getInfo())).getFreq();
+        int freq = ((Informacao)(this.raiz.getInfo())).getFreq()+((Informacao)(outra.raiz.getInfo())).getFreq();
 
         Informacao info = new Informacao(freq);
         
@@ -80,7 +80,33 @@ public class ArvoreCompactadora extends Arvore<Informacao>
 
     }
     
-    public int  getCodOriginal(String strCodCriado)throws Exception
+    
+    
+    public int  getCodOriginal(String str)throws Exception
+    {
+        if (this.raiz==null)
+            throw new Exception ("Arvore ausente");
+        
+        No atual=this.raiz;
+        
+        while(atual.getInfo().getCod()==null)
+        {
+            if(str.charAt(0)=='0')
+            {
+                str = str.substring(1, str.length());
+                atual = atual.getEsq();
+            }
+            else//str.charAt(0)=='1'
+            {
+                str = str.substring(1, str.length());
+                atual = atual.getDir();
+            }        
+        }
+        
+        return atual.getInfo().getCod();
+    }
+    
+   /* public int  getCodOriginal(String strCodCriado)throws Exception
     {
         if (this.raiz==null)
             throw new Exception ("Arvore ausente");
@@ -106,10 +132,9 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         //str.charAt(0)=='1'
         str = str.substring(1, str.length());
         return auxGetCod(atual.getDir(), str);
-        //acho que vai ter que retornar todos os codigos
-        
                 
-    }
+                
+    }*/
     
     
     public ArvoreCompactadora (ArvoreCompactadora modelo)throws Exception

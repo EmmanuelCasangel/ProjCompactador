@@ -35,7 +35,7 @@ public class Descompactador
             
             cods = new Object[qtdCods][4];
             
-            for(int i=0; i<qtdCods-1;i++)
+            for(int i=0; i<qtdCods;i++)
             {
                 int tamCod   = arq.readInt();
                 System.out.println(tamCod);
@@ -53,17 +53,17 @@ public class Descompactador
                 //pos 1 guarda o codigo criado
                 cods[i][1]   = cod;
                 //pos 2 guarda a frequencia
-                cods[i][2]   = arq.readLong();
-                tamCabecalho += 8;
+                cods[i][2]   = arq.readInt();
+                tamCabecalho += 4;
                 //pos 3 guarda o codigo original
                 cods[i][3]   = arq.read();
                 tamCabecalho += 1;                      
                 
-            }
-            int teste = arq.readInt();
+            }//deu certo?
+
             
-            int tamArq =(int)(long) arq.length();
-            byte[] textoEmByte = new byte[tamArq-tamCabecalho];
+            long tamArq = arq.length();
+            byte[] textoEmByte = new byte[(int)tamArq-tamCabecalho];
             arq.read(textoEmByte);//tem lugares que ficam com valor negativo     
             arq.close();
             
@@ -157,10 +157,10 @@ public class Descompactador
 
             for(int i=0;i<=cods.length-1; i++)
             {
-                if((long)cods[i][2]!=0)
+                if((int)cods[i][2]!=0)
                 {
                     
-                    Informacao info = new Informacao((Integer)cods[i][3], (long)cods[i][2]);
+                    Informacao info = new Informacao((Integer)cods[i][3], (int)cods[i][2]);
                     arvoreC = new ArvoreCompactadora(info);
                     qtd++;
                     arvores[qtd-1] = arvoreC;                    

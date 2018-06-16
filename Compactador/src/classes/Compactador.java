@@ -132,11 +132,11 @@ public class Compactador {
                         System.out.println(tamCod);
                         byte[] codB = stringToByteArray(cods[i]);//cod gerado
                         byte codAnt  = (byte)i;//codigo Anterior
-                        long freq  = bytesArqLido[codAnt];//frquencia do codigo
+                        int freq  = bytesArqLido[codAnt];//frquencia do codigo
                         
                         arqNovo.writeInt(tamCod);
                         arqNovo.write(codB);
-                        arqNovo.writeLong(freq);//para que eu possa montar a arvore do outro lado
+                        arqNovo.writeInt(freq);//para que eu possa montar a arvore do outro lado
                         arqNovo.write(codAnt);
                     }
                 }
