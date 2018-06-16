@@ -97,8 +97,9 @@ public class Descompactador
             
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde);
-
-            arvores[0].descompacta(nNovoArq, textoCompactado);                     
+            
+            RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
+            arvores[0].descompacta(escrevArq, textoCompactado);                     
                     
             
             

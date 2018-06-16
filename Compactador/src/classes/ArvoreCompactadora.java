@@ -11,7 +11,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
    
 
     protected String[] cods; 
-    RandomAccessFile escrevArq;
+    
     
     public void insere(Informacao x)
     {
@@ -42,7 +42,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         if (outra==null)
             throw new Exception ("Arvore ausente");
 
-        int freq = ((Informacao)(this.raiz.getInfo())).getFreq()+((Informacao)(outra.raiz.getInfo())).getFreq();
+        int freq = this.raiz.getInfo().getFreq()+outra.raiz.getInfo().getFreq();
 
         Informacao info = new Informacao(freq);
         
@@ -70,7 +70,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
 
             if(((Informacao)atual.getInfo()).getCod() != null)
             {
-                cods[((Informacao)atual.getInfo()).getCod()]=c;
+                cods[atual.getInfo().getCod()]=c;
             }
             else
             {
@@ -85,8 +85,48 @@ public class ArvoreCompactadora extends Arvore<Informacao>
 
     }
     
+  public void  descompacta( RandomAccessFile arq, String txtComp)throws Exception
+    {
+        if (this.raiz==null)
+            throw new Exception ("Arvore ausente");
+        
+       No atual = this.raiz;
+        
+       while(!"".equals(txtComp))
+       {
+           
+           if(atual.getInfo().getCod()!=null)
+            {
+                arq.write(atual.getInfo().getCod());                              
+                atual = this.raiz;
+            }
+            else
+            {
+                if(txtComp.charAt(0)=='0')
+                {
+                    txtComp = txtComp.substring(1, txtComp.length());
+                    atual = atual.getEsq();              
+                }
+                else
+                {
+                    if(txtComp.charAt(0)=='1')
+                    {
+                        txtComp = txtComp.substring(1, txtComp.length());
+                       atual = atual.getDir();
+                    }
+                    else
+                        throw new Exception("Codigo não esta na arvore");
+                }
+            }
+       }
+        
+       
+        arq.close();
+    }
     
     
+    //metodo utilizando recursao e Random acess file como atriubuto da classe
+    /*
     public void  descompacta(String nomeArq, String txtComp)throws Exception
     {
         if (this.raiz==null)
@@ -98,7 +138,6 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         
        escrevArq.close();
     }
-    
     
     private void auxDescomp(No atual, String str)
     {
@@ -128,42 +167,11 @@ public class ArvoreCompactadora extends Arvore<Informacao>
                     auxDescomp(atual.getDir(), str);
                 }
             }
-        }
-                
-                
-    }
-    
-   /* public int  getCodOriginal(String strCodCriado)throws Exception
-    {
-        if (this.raiz==null)
-            throw new Exception ("Arvore ausente");
-        
-        return auxGetCod(this.raiz, strCodCriado);
-    }
-    
-    private int auxGetCod(No atual, String str)throws Exception
-    {
-        if(str=="")
-        {  
-            if(atual.getInfo().getCod()!=null)
-               return atual.getInfo().getCod();
-            else
-                 throw new Exception ("Codigo passado não esta na arvore");
-        }
-        //else
-        if(str.charAt(0)=='0')
-        {
-            str = str.substring(1, str.length());
-            return auxGetCod(atual.getEsq(), str);              
-        }
-        //str.charAt(0)=='1'
-        str = str.substring(1, str.length());
-        return auxGetCod(atual.getDir(), str);
-                
-                
+        }                
     }*/
+     
     
-    
+    //metodos obrigatorios
     public ArvoreCompactadora (ArvoreCompactadora modelo)throws Exception
     {
         if(modelo==null)
