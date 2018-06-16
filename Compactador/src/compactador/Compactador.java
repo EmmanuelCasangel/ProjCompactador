@@ -29,7 +29,7 @@ public class Compactador {
         String nomeArq = d.readLine();
         
         //classes.Compactador c = new classes.Compactador(nomeArq);
-        //c.Compactar();
+        
         
         Descompactador desc = new Descompactador(nomeArq);
        

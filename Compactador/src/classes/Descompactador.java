@@ -26,24 +26,26 @@ public class Descompactador
             
             
             int qtdLixos = arq.readInt();
-            System.out.println(String.valueOf(qtdLixos));
+            System.out.println(String.valueOf(qtdLixos));//certo
             int qtdCods = arq.readInt();
-            System.out.println(String.valueOf(qtdCods));
+            System.out.println(String.valueOf(qtdCods));//certo
             
             int tamCabecalho = 8;
             
             
             cods = new Object[qtdCods][4];
             
-            for(int i=0; i<qtdCods;i++)
+            for(int i=0; i<qtdCods-1;i++)
             {
                 int tamCod   = arq.readInt();
+                System.out.println(tamCod);
                 int tamVet = (int) Math.ceil(tamCod/8.);  
                 byte[] cod = new byte[tamVet];
                 
                 
                 arq.read(cod);
                 tamCabecalho+= tamVet;
+                
                 
                 //pos 0 guarda tamanho do codigo
                 cods[i][0] = tamCod;
@@ -58,7 +60,7 @@ public class Descompactador
                 tamCabecalho += 1;                      
                 
             }
-            
+            int teste = arq.readInt();
             
             int tamArq =(int)(long) arq.length();
             byte[] textoEmByte = new byte[tamArq-tamCabecalho];
@@ -98,38 +100,37 @@ public class Descompactador
             
             RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
             
+            int index = 0;
             while(!textoCompactado.isEmpty())
             {
-               for(int i=0; i<cods.length; i++)
-                {
+               
+                
                     String cod="";
-                    for(byte pedCod:(byte[])cods[i][1])
-                        cod+= Integer.toBinaryString((byte)pedCod);//passa o codigo que nos geramos, que
-                                                             //é um byte[], para uma string
-                   
-                    while(cod.length()<(int)cods[i][0])
+                    for(byte pedCod:(byte[])cods[index][1])
+                        cod+= Integer.toBinaryString((byte)pedCod);
+                                                             
+                    while(cod.length()<(int)cods[index][0])
                         cod = "0" + cod; 
                      cod = completaString(cod);
                     
                     
                                                              
                     int lixo;
-                    lixo = cod.length()-(int)cods[i][0];
+                    lixo = cod.length()-(int)cods[index][0];
                     cod  = cod.substring(lixo);//retira o lixo
                             
-                    if(textoCompactado.indexOf(cod)== 0)
-                                                        
-                    {
+                                                                          
+                    int codAnt = arvores[0].getCodOriginal(cod);
                         
-                        escrevArq.write(((int)cods[i][2]));
+                    escrevArq.write(codAnt);
                         
                         
-                        if((int)cods[i][0] > textoCompactado.length())
-                            textoCompactado = "";
-                        else
-                            textoCompactado = textoCompactado.substring((int)cods[i][0]);
-                    } 
-                }
+                    if((int)cods[index][0] > textoCompactado.length())
+                        textoCompactado = "";
+                    else
+                        textoCompactado = textoCompactado.substring((int)cods[index][0]);
+                    
+                
                 
             }
             

@@ -21,54 +21,54 @@ public class Compactador {
 	
 	public Compactador(String nArq)
 	{
-		try 
-		{   
-                    nomeArq = nArq;
-                    this.textoEmByte = new byte[(int)(new File(nArq).length())];
-                    arq = new RandomAccessFile(nArq,"r");
+            try 
+            {   
+                nomeArq = nArq;
+                this.textoEmByte = new byte[(int)(new File(nArq).length())];
+                arq = new RandomAccessFile(nArq,"r");
                     
-                    arq.read(textoEmByte);
-                    arq.close();
-		}
-		catch (Exception e) 
-		{
-			
-			e.printStackTrace();
-		}
-		
+                arq.read(textoEmByte);
+                arq.close();
+            }
+            catch (Exception e) 
+            {
+		e.printStackTrace();
+            }
+            Compactar();
 	}
         	
 	private void lerArquivo()
 	{
             RandomAccessFile leArq;
-		try 
-                {
-                    leArq = new RandomAccessFile(nomeArq,"r");
+            try 
+            {
+                leArq = new RandomAccessFile(nomeArq,"r");
                        
-                    for(;;)
-                    {
-			int atual;
-			
-			atual = leArq.read();
-		
-			if(atual == -1)
-                            break;
-				
-                        //System.out.println(atual);				
-						
-			bytesArqLido[atual] =bytesArqLido[atual] + 1;
+                for(;;)
+                {
+                    int atual;
+
+                    atual = leArq.read();
+
+                    if(atual == -1)
+                        break;
+
+                    //System.out.println(atual);				
+
+                    bytesArqLido[atual] =bytesArqLido[atual] + 1;
 								
-                    }
-                    leArq.close();
-		} 
-		catch (IOException e) 
-		{
-                    e.printStackTrace();
-		}
-	  }
+                }
+                leArq.close();  
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            }
+              
+	}
 	
         
-        public void Compactar()
+        private void Compactar()
         {   
             
             try 
@@ -93,9 +93,6 @@ public class Compactador {
         {
             try
             {
-               
-               
-                
                 RandomAccessFile arqNovo = new RandomAccessFile(nomeArq+".comp", "rw");
                 
            
@@ -132,6 +129,7 @@ public class Compactador {
                     if(cods[i]!=null)
                     {
                         int tamCod    =   cods[i].length();//tamanho do codigo gerado
+                        System.out.println(tamCod);
                         byte[] codB = stringToByteArray(cods[i]);//cod gerado
                         byte codAnt  = (byte)i;//codigo Anterior
                         long freq  = bytesArqLido[codAnt];//frquencia do codigo
@@ -177,8 +175,7 @@ public class Compactador {
 	    	
 	    	if (auxStr.length() % 8 == 0) {
 		    ret[index] = (byte)Integer.parseInt(auxStr, 2);
-                    System.out.println("----------------------------------------------------");
-                    System.out.println(auxStr);
+                   
 		    index++;
 		    auxStr = "";
 	    	}
@@ -193,8 +190,7 @@ public class Compactador {
             {
                 str = "0"+str;
             }
-            System.out.println("---------------------------------------------------------------");
-            System.out.println(str);
+           
             //essa parte esta dando certo
             
             /*int sobrando = 8 - str.length() % 8;
