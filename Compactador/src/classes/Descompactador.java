@@ -64,7 +64,7 @@ public class Descompactador
             
             long tamArq = arq.length();
             byte[] textoEmByte = new byte[(int)tamArq-tamCabecalho];
-            arq.read(textoEmByte);//tem lugares que ficam com valor negativo     
+            arq.read(textoEmByte);     
             arq.close();
             
             String textoCompactado = "";
@@ -87,7 +87,7 @@ public class Descompactador
             System.out.println(textoCompactado);//ate aqui esta certo
             
             
-            
+            //precisa debugar e ir vendo o que ta errado 
             
             iniciarVetor();
             ordenarVetor();
