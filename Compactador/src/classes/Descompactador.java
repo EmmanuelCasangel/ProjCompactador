@@ -33,33 +33,18 @@ public class Descompactador
             int tamCabecalho = 8;
             
             
-            cods = new Object[qtdCods][4];
-            
-            for(int i=0; i<qtdCods;i++)
+            cods = new Object[qtdCods][2];
+            tamCabecalho = 9 * qtdCods;
+            for(int i=0; qtdCods-1>=i;i++)
             {
-                int tamCod   = arq.readInt();
-                System.out.println(tamCod);
-                int tamVet = (int) Math.ceil(tamCod/8.);  
-                byte[] cod = new byte[tamVet];
+                //pos 0 guarda a frequencia
+                cods[i][0]   = arq.readLong();
+                //tamCabecalho += 8;
+                //pos 1 guarda o codigo original
+                cods[i][1]   = arq.read();
+                //tamCabecalho += 1;                      
                 
-                
-                arq.read(cod);
-                tamCabecalho+= tamVet;
-                
-                
-                //pos 0 guarda tamanho do codigo
-                cods[i][0] = tamCod;
-                tamCabecalho += 4;
-                //pos 1 guarda o codigo criado
-                cods[i][1]   = cod;
-                //pos 2 guarda a frequencia
-                cods[i][2]   = arq.readInt();
-                tamCabecalho += 4;
-                //pos 3 guarda o codigo original
-                cods[i][3]   = arq.read();
-                tamCabecalho += 1;                      
-                
-            }//deu certo?
+            }
 
             
             long tamArq = arq.length();
@@ -118,10 +103,10 @@ public class Descompactador
 
             for(int i=0;i<=cods.length-1; i++)
             {
-                if((int)cods[i][2]!=0)
+                if((long)cods[i][0]!=0)
                 {
                     
-                    Informacao info = new Informacao((Integer)cods[i][3], (int)cods[i][2]);
+                    Informacao info = new Informacao((Integer)cods[i][1], (long)cods[i][0]);
                     arvoreC = new ArvoreCompactadora(info);
                     qtd++;
                     arvores[qtd-1] = arvoreC;                    

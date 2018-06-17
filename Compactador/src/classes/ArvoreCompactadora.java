@@ -42,7 +42,7 @@ public class ArvoreCompactadora extends Arvore<Informacao>
         if (outra==null)
             throw new Exception ("Arvore ausente");
 
-        int freq = this.raiz.getInfo().getFreq()+outra.raiz.getInfo().getFreq();
+        long freq = this.raiz.getInfo().getFreq()+outra.raiz.getInfo().getFreq();
 
         Informacao info = new Informacao(freq);
         

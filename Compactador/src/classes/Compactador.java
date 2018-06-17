@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 public class Compactador {
         private byte[] textoEmByte;
 	private String nomeArq;
-	private int[] bytesArqLido = new int[256];
+	private long[] bytesArqLido = new long[256];
 	private RandomAccessFile arq; //cria o arquivo
         ArvoreCompactadora[] arvores = new ArvoreCompactadora[256];
         private int qtd=0;
@@ -55,7 +55,7 @@ public class Compactador {
 
                     //System.out.println(atual);				
 
-                    bytesArqLido[atual] =bytesArqLido[atual] + 1;
+                    bytesArqLido[atual] = bytesArqLido[atual]+1;
 								
                 }
                 leArq.close();  
@@ -109,9 +109,9 @@ public class Compactador {
 		}
                 
                 int qtdCods = 0;
-		for (String cod : cods) 
-                {
-                    if (cod != null)
+		for(int i=0; i<cods.length-1;i++) 
+                {//esta certo
+                    if(cods[i]!=null)
                         qtdCods++;
 		}
                 
@@ -122,27 +122,32 @@ public class Compactador {
                 //passar a qtdLixo e a qtdCods para byte
                 arqNovo.writeInt(qtdLixo);
                 arqNovo.writeInt(qtdCods);
+                System.out.println(qtdLixo);
+                System.out.println(qtdCods);
                 
                 
-                
-                for(int i=0; i<cods.length;i++)
+                int teste = 0;
+                for(int i=0; i<cods.length-1;i++)
                 {
                     if(cods[i]!=null)
                     {
-                        int tamCod    =   cods[i].length();//tamanho do codigo gerado
-                        System.out.println(tamCod);
-                        byte[] codB = stringToByteArray(cods[i]);//cod gerado
-                        byte codAnt  = (byte)i;//codigo Anterior
-                        int freq  = bytesArqLido[codAnt];//frquencia do codigo
                         
-                        arqNovo.writeInt(tamCod);
-                        arqNovo.write(codB);
-                        arqNovo.writeInt(freq);//para que eu possa montar a arvore do outro lado
+                        byte codAnt  = (byte)i;//codigo Anterior
+                        long freq  = bytesArqLido[(codAnt & 0xFF)];//frquencia do codigo
+                        
+                        arqNovo.writeLong(freq);
                         arqNovo.write(codAnt);
+                        System.out.println(freq);
+                        
+                        teste ++;
                     }
                 }
-                System.out.println("texto compactado:");
-                System.out.println(txtEmCod);
+                
+                //ele nao ta printando na tela
+               System.out.println("Chegou aqui");
+               System.out.println(teste);
+               
+               
                 byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
                 arqNovo.write(texto);                       //ante de ser escrito no arquivo
                 arqNovo.close();
@@ -150,7 +155,7 @@ public class Compactador {
             }
             catch(Exception erro)
             {
-                
+                erro.printStackTrace();
             }
                 
         }
