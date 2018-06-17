@@ -25,19 +25,30 @@ public class Compactador {
         try
         {
         BufferedReader d = new BufferedReader(new InputStreamReader(in));
-        System.out.println("Escreve o caminho do arquivo"); 
-        String nomeArq = d.readLine();
         
         System.out.println("1 - Compactar"); 
         System.out.println("2 - Descompactar");
-        
         String str = d.readLine();
+        
+        
+        
         classes.Compactador c;
         Descompactador desc;        
         if(str.equals("1"))
+        {
+            System.out.println("Escreva o caminho do arquivo a ser compactado");        
+            String nomeArq = d.readLine();
             c = new classes.Compactador(nomeArq);
+        }
         else
-            desc = new Descompactador(nomeArq);
+        {
+            System.out.println("Escreva o caminho do arquivo a ser descompactado");
+            String nomeArq = d.readLine();
+            if(nomeArq.contains(".comp"))
+                desc = new Descompactador(nomeArq);
+            else
+                System.out.println("Esse arquivo não esta compactado");
+        }
        
         p("Acabou");
         
