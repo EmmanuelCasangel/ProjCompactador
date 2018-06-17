@@ -77,7 +77,7 @@ public class Compactador {
                 iniciarVetor();
                 ordenarVetor();
                 mesclarArvores();
-                System.out.println(arvores[0].toString());
+                //System.out.println(arvores[0].toString());
                 finalizarCompactacao();
                 System.out.println("Compactou"); 
                 
@@ -109,7 +109,7 @@ public class Compactador {
 		}
                 
                 int qtdCods = 0;
-		for(int i=0; i<cods.length-1;i++) 
+		for(int i=0; i<cods.length;i++) 
                 {//esta certo
                     if(cods[i]!=null)
                         qtdCods++;
@@ -124,20 +124,21 @@ public class Compactador {
                 arqNovo.writeInt(qtdCods);
                 System.out.println(qtdLixo);
                 System.out.println(qtdCods);
-                System.out.println(txtEmCod);
+                //System.out.println(txtEmCod);
                 
                 int teste = 0;
-                for(int i=0; i<cods.length-1;i++)
+                for(int i=0; i<cods.length;i++)
                 {
                     if(cods[i]!=null)
                     {
                         
-                        byte codAnt  = (byte)i;//codigo Anterior
-                        long freq  = bytesArqLido[(codAnt & 0xFF)];//frquencia do codigo
+                        //byte codAnt  = (byte)i;//codigo Anterior
+                        long freq  = bytesArqLido[i];//frquencia do codigo
                         
                         arqNovo.writeLong(freq);
-                        arqNovo.write(codAnt);
+                        arqNovo.writeByte(i);
                         System.out.println(freq);
+                        System.out.println(i);
                         
                         teste ++;
                     }

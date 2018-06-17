@@ -35,14 +35,16 @@ public class Descompactador
             
             cods = new Object[qtdCods][2];
             tamCabecalho = 9 * qtdCods;
-            for(int i=0; qtdCods-1>=i;i++)
+            for(int i=0;  i< qtdCods;i++)
             {
                 //pos 0 guarda a frequencia
-                cods[i][0]   = arq.readLong();
+                cods[i][0]   = arq.readLong();//funciona ate para imagem
                 //tamCabecalho += 8;
                 //pos 1 guarda o codigo original
                 cods[i][1]   = arq.read();
-                //tamCabecalho += 1;                      
+                //tamCabecalho += 1;  
+                System.out.println(cods[i][0]);
+                System.out.println(cods[i][1]);
                 
             }
 
@@ -68,8 +70,8 @@ public class Descompactador
             }
             
             textoCompactado = textoCompactado.substring(qtdLixos);
-            System.out.println("TextoCompactado:");
-            System.out.println(textoCompactado);//ate aqui esta certo
+            //System.out.println("TextoCompactado:");
+            //System.out.println(textoCompactado);//ate aqui esta certo
             //quando se trata de imagem a ultima arte d texto compactado fica estranha
             
             
@@ -80,7 +82,7 @@ public class Descompactador
             mesclarArvores();
             //quando se trata de imagem as arvores ficam diferente, precso sincronizar isso
             
-            System.out.println(arvores[0].toString());
+            //System.out.println(arvores[0].toString());
             
             int onde  = nArq.indexOf(".comp");
             String nNovoArq = nArq.substring(0, onde);
