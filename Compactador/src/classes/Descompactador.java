@@ -70,6 +70,7 @@ public class Descompactador
             textoCompactado = textoCompactado.substring(qtdLixos);
             System.out.println("TextoCompactado:");
             System.out.println(textoCompactado);//ate aqui esta certo
+            //quando se trata de imagem a ultima arte d texto compactado fica estranha
             
             
             //precisa debugar e ir vendo o que ta errado 
@@ -77,6 +78,7 @@ public class Descompactador
             iniciarVetor();
             ordenarVetor();
             mesclarArvores();
+            //quando se trata de imagem as arvores ficam diferente, precso sincronizar isso
             
             System.out.println(arvores[0].toString());
             
@@ -85,7 +87,7 @@ public class Descompactador
             
             RandomAccessFile escrevArq = new RandomAccessFile(nNovoArq,"rw");
             arvores[0].descompacta(escrevArq, textoCompactado);                     
-                    
+            System.out.println("Descompactou");        
             
             
         }

@@ -124,7 +124,7 @@ public class Compactador {
                 arqNovo.writeInt(qtdCods);
                 System.out.println(qtdLixo);
                 System.out.println(qtdCods);
-                
+                System.out.println(txtEmCod);
                 
                 int teste = 0;
                 for(int i=0; i<cods.length-1;i++)
@@ -143,13 +143,13 @@ public class Compactador {
                     }
                 }
                 
-                //ele nao ta printando na tela
+                
                System.out.println("Chegou aqui");
                System.out.println(teste);
                
                
-                byte[] texto = stringToByteArray(txtEmCod);//verificar como fica o texto
-                arqNovo.write(texto);                       //ante de ser escrito no arquivo
+                byte[] texto = stringToByteArray(txtEmCod);
+                arqNovo.write(texto);                      
                 arqNovo.close();
            
             }
