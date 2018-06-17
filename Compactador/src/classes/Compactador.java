@@ -122,11 +122,11 @@ public class Compactador {
                 //passar a qtdLixo e a qtdCods para byte
                 arqNovo.writeInt(qtdLixo);
                 arqNovo.writeInt(qtdCods);
-                System.out.println(qtdLixo);
-                System.out.println(qtdCods);
+                //System.out.println(qtdLixo);
+                //System.out.println(qtdCods);
                 //System.out.println(txtEmCod);
                 
-                int teste = 0;
+                
                 for(int i=0; i<cods.length;i++)
                 {
                     if(cods[i]!=null)
@@ -137,16 +137,15 @@ public class Compactador {
                         
                         arqNovo.writeLong(freq);
                         arqNovo.writeByte(i);
-                        System.out.println(freq);
-                        System.out.println(i);
+                        //System.out.println(freq);
+                        //System.out.println(i);
                         
-                        teste ++;
+                    
                     }
                 }
                 
                 
-               System.out.println("Chegou aqui");
-               System.out.println(teste);
+               
                
                
                 byte[] texto = stringToByteArray(txtEmCod);

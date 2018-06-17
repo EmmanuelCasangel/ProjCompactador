@@ -26,9 +26,9 @@ public class Descompactador
             
             
             int qtdLixos = arq.readInt();
-            System.out.println(String.valueOf(qtdLixos));//certo
+            //System.out.println(String.valueOf(qtdLixos));//certo
             int qtdCods = arq.readInt();
-            System.out.println(String.valueOf(qtdCods));//certo
+            //System.out.println(String.valueOf(qtdCods));//certo
             
             int tamCabecalho = 8;
             
@@ -43,8 +43,8 @@ public class Descompactador
                 //pos 1 guarda o codigo original
                 cods[i][1]   = arq.read();
                 //tamCabecalho += 1;  
-                System.out.println(cods[i][0]);
-                System.out.println(cods[i][1]);
+                //System.out.println(cods[i][0]);
+                //System.out.println(cods[i][1]);
                 
             }
 
